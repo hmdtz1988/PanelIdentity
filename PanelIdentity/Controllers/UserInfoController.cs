@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using BusinessModel;  
 using Core.Utilities.Results;  
 using Core.Extensions;  
-using IResult = Core.Utilities.Results.IResult;  
+using IResult = Core.Utilities.Results.IResult;
+using PanelIdentity.Security;
+
 namespace PanelIdentity.Controllers  
 {  
     [Route("api/UserInfo/[action]")]  
@@ -81,7 +83,8 @@ namespace PanelIdentity.Controllers
         public IResult Post([FromBody] UserInfoBusinessModel input)    
         {    
             try    
-            {  
+            {
+                input.Password = MD5Security.GetMd5Hash(input.Password);
                 action.Add(input);  
                 return new SuccessDataResult<UserInfoBusinessModel>(input, 1);  
             }  

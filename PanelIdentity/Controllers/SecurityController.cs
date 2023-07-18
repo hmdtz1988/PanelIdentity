@@ -137,15 +137,12 @@ namespace PanelIdentity.Controllers
                 {
                     Random rnd = new Random();
                     var disposablePassword = rnd.Next(13024, 100000);
-                    var message = @"سیستم مدیریت صندوق بازنشستگی
-                                  رمز یکبار مصرف شما: " + disposablePassword.ToString() + @"
-                                    شرکت نرم افزاری روشا";
                     var user = await userAction.Get(userbyMobile.FirstOrDefault().UserInfoId.Value, null);
                     user.ActivationCode = disposablePassword.ToString();
                     userAction.Modify(user);
                     List<String> str = new List<string>();
-                    var sendData = sendSMSService.Send(mobileNumber, message);
-                    if (sendData)
+                    var sendData = sendSMSService.VerifySMS(mobileNumber, (user.FirstName + "" + user.LastName).Replace(" ","").Trim() ,disposablePassword.ToString());
+                    if (sendData.IsCompleted)
                     {
                         result.Tenants = userbyMobile.FirstOrDefault().UserTenants.ToList(); // TODO IMPORTANT
                         result.UserInfoType = 1;

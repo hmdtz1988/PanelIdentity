@@ -1,14 +1,10 @@
-using BusinessLogic.BusinessModelRules;  
-using BusinessModel;  
-using System;  
-using System.Collections.Generic;  
-using System.Linq;  
-using System.Linq.Expressions;  
-using System.Text;  
-using System.Threading.Tasks;  
-namespace BusinessLogic.Action  
-{  
-   public class UserInfoAction : ActionBase  
+using BusinessLogic.BusinessModelRules;
+using BusinessModel;
+using System.Linq.Expressions;
+
+namespace BusinessLogic.Action
+{
+    public class UserInfoAction : ActionBase  
    {  
        public UserInfoAction()  
        {  
@@ -38,12 +34,17 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.UserInfoDao.GetByKey(input, includeProperties);  
        }  
-       public void Add(UserInfoBusinessModel input)  
-       {  
-           UserInfoBusinessRule obj = new UserInfoBusinessRule(input);  
-           if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
-               throw new Exception(obj.BrokenRules.ToString());  
-           FactoryContainer.Factory.UserInfoDao.Create(input);  
+       public async void Add(UserInfoBusinessModel input)  
+       {
+            var checkDublicate = await GetAll(x => x.MobileNo == input.MobileNo || (input.Email != "" && x.Email == input.Email) || (input.UserName != "" && x.UserName == input.UserName) || (input.NationalCode != "" && x.NationalCode == input.NationalCode));
+            
+            if (checkDublicate!= null && checkDublicate.Count > 0)
+                throw new Exception("Dublicate User");
+
+            UserInfoBusinessRule obj = new UserInfoBusinessRule(input);  
+            if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
+                throw new Exception(obj.BrokenRules.ToString());  
+            FactoryContainer.Factory.UserInfoDao.Create(input);  
        }  
        public void Modify(UserInfoBusinessModel input)  
        {  

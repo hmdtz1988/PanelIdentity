@@ -1,4 +1,5 @@
-﻿using DataAccess.Interfaces;
+﻿using DataAccess.Interface;
+using DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,5 +41,6 @@ namespace DataAccess.Interfaces
         IUserPermissionDao UserPermissionDao { get; }
         IUserServiceItemDao UserServiceItemDao { get; }
         ITempRolePermissionDao TempRolePermissionDao { get; }
+        IProjectCategoryDao ProjectCategoryDao { get; }
     }
 }

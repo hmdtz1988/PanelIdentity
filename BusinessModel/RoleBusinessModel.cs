@@ -19,8 +19,8 @@ namespace BusinessModel
         public virtual ProjectBusinessModel Project { get; set; } = null!;
         public virtual TenantBusinessModel Tenant { get; set; } = null!;
 
-        public virtual ICollection<UserInRoleBusinessModel> UserInRoles { get; set; } = new List<UserInRoleBusinessModel>();
-        public virtual ICollection<RolePermissionBusinessModel> RolePermissions { get; set; } = new List<RolePermissionBusinessModel>();
+        public virtual ICollection<UserInRoleBusinessModel>? UserInRoles { get; set; } = new List<UserInRoleBusinessModel>();
+        public virtual ICollection<RolePermissionBusinessModel>? RolePermissions { get; set; } = new List<RolePermissionBusinessModel>();
 
     }
 }  

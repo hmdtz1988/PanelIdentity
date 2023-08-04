@@ -29,6 +29,8 @@ public partial class PanelIdentityContext : DbContext
 
     public virtual DbSet<ProjectAccountType> ProjectAccountTypes { get; set; }
 
+    public virtual DbSet<ProjectCategory> ProjectCategories { get; set; }
+
     public virtual DbSet<QRLoginTransaction> QRLoginTransactions { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
@@ -172,6 +174,10 @@ public partial class PanelIdentityContext : DbContext
             entity.Property(e => e.TitleFr).HasMaxLength(100);
             entity.Property(e => e.TitleTr).HasMaxLength(100);
             entity.Property(e => e.Url).HasMaxLength(500);
+
+            entity.HasOne(d => d.ProjectCategory).WithMany(p => p.Projects)
+                .HasForeignKey(d => d.ProjectCategoryId)
+                .HasConstraintName("FK_Project_ProjectCategory");
         });
 
         modelBuilder.Entity<ProjectAccountType>(entity =>
@@ -194,6 +200,19 @@ public partial class PanelIdentityContext : DbContext
                 .HasForeignKey(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ProjectAccountType_Project");
+        });
+
+        modelBuilder.Entity<ProjectCategory>(entity =>
+        {
+            entity.ToTable("ProjectCategory");
+
+            entity.Property(e => e.ProjectCategoryId).ValueGeneratedNever();
+            entity.Property(e => e.TitleAr).HasMaxLength(100);
+            entity.Property(e => e.TitleDu).HasMaxLength(50);
+            entity.Property(e => e.TitleEn).HasMaxLength(100);
+            entity.Property(e => e.TitleFa).HasMaxLength(100);
+            entity.Property(e => e.TitleFr).HasMaxLength(100);
+            entity.Property(e => e.TitleTr).HasMaxLength(100);
         });
 
         modelBuilder.Entity<QRLoginTransaction>(entity =>

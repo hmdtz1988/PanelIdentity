@@ -16,6 +16,7 @@ namespace BusinessModel
 		public string Icon { get; set; }  
 		public DateTime CreationDate { get; set; }
 
-        public virtual ICollection<ServiceBusinessModel> Services { get; set; } = new List<ServiceBusinessModel>();
-    }  
+        public virtual ICollection<ServiceBusinessModel>? Services { get; set; } = new List<ServiceBusinessModel>();
+        public virtual ICollection<ProjectAccountTypeBusinessModel>? ProjectAccountTypes { get; set; } = new List<ProjectAccountTypeBusinessModel>();
+    }
 }  

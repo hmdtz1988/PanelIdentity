@@ -16,8 +16,8 @@ namespace BusinessModel
 		public bool IsDeleted { get; set; }  
 		public DateTime? DeleteDate { get; set; }  
 		public Int64? DeletedById { get; set; }
-        public virtual ServiceActionBusinessModel ServiceAction { get; set; } = null!;
-        public virtual TenantBusinessModel Tenant { get; set; } = null!;
+        public virtual ServiceActionBusinessModel? ServiceAction { get; set; } = null!;
+        public virtual TenantBusinessModel? Tenant { get; set; } = null!;
         
     }  
 }  

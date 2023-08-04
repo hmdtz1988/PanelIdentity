@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.EntityFramework.Model;
+using DataAccess.Interface;
 
 namespace DataAccess.EntityFramework.MS_SQL
 {
@@ -94,5 +95,9 @@ namespace DataAccess.EntityFramework.MS_SQL
         public IUserPermissionDao UserPermissionDao { get { return new UserPermissionDao(DatabaseContext); } }
         public IUserServiceItemDao UserServiceItemDao { get { return new UserServiceItemDao(DatabaseContext); } }
         public ITempRolePermissionDao TempRolePermissionDao { get { return new TempRolePermissionDao(DatabaseContext); } }
+
+        public IProjectCategoryDao ProjectCategoryDao { get { return new ProjectCategoryDao(DatabaseContext); } }
+
+        
     }
 }

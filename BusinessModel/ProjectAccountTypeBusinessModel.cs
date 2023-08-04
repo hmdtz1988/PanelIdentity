@@ -10,10 +10,9 @@ namespace BusinessModel
 		public Int16 PeriodType { get; set; }  
 		public Int64 CurrencyId { get; set; }  
 		public decimal Amount { get; set; }
-        public virtual AccountTypeBusinessModel AccountType { get; set; } = null!;
+        public virtual AccountTypeBusinessModel? AccountType { get; set; } = null!;
 
-        public virtual CurrencyBusinessModel Currency { get; set; } = null!;
+        public virtual CurrencyBusinessModel? Currency { get; set; } = null!;
 
-        public virtual ProjectBusinessModel Project { get; set; } = null!;
     }  
 }  

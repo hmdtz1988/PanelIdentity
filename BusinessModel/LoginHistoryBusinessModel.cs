@@ -17,12 +17,12 @@ namespace BusinessModel
 		public DateTime? LogoutDateTime { get; set; }  
 		public DateTime? ExpireDateTime { get; set; }  
 		public DateTime CreationDate { get; set; }
-        public virtual LoginStatusBusinessModel LoginStatus { get; set; } = null!;
+        public virtual LoginStatusBusinessModel? LoginStatus { get; set; } = null!;
 
-        public virtual ProjectBusinessModel Project { get; set; } = null!;
+        public virtual ProjectBusinessModel? Project { get; set; } = null!;
 
-        public virtual TenantBusinessModel Tenant { get; set; } = null!;
+        public virtual TenantBusinessModel? Tenant { get; set; } = null!;
 
-        public virtual UserInfoBusinessModel UserInfo { get; set; } = null!;
+        public virtual UserInfoBusinessModel? UserInfo { get; set; } = null!;
     }  
 }  

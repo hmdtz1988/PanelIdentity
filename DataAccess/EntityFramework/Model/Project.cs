@@ -7,6 +7,8 @@ public partial class Project
 {
     public int ProjectId { get; set; }
 
+    public int? ProjectCategoryId { get; set; }
+
     public string TitleFa { get; set; } = null!;
 
     public string? TitleEn { get; set; }
@@ -28,6 +30,8 @@ public partial class Project
     public virtual ICollection<LoginHistory> LoginHistories { get; set; } = new List<LoginHistory>();
 
     public virtual ICollection<ProjectAccountType> ProjectAccountTypes { get; set; } = new List<ProjectAccountType>();
+
+    public virtual ProjectCategory? ProjectCategory { get; set; }
 
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
 

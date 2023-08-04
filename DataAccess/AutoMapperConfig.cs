@@ -13,56 +13,33 @@ namespace DataAccess.EntityFramework.MS_SQL
     {
         public AutoMapperConfig()
         {
-            CreateMap<UserDeviceBusinessModel, UserDevice>();
-            CreateMap<UserDevice, UserDeviceBusinessModel>();
-            CreateMap<QRLoginTransactionBusinessModel, QRLoginTransaction>();
-            CreateMap<QRLoginTransaction, QRLoginTransactionBusinessModel>();
-            CreateMap<TempRoleBusinessModel, TempRole>();
-            CreateMap<TempRole, TempRoleBusinessModel>();
-            CreateMap<LoginHistoryBusinessModel, LoginHistory>();
-            CreateMap<LoginHistory, LoginHistoryBusinessModel>();
-            CreateMap<ServiceActionBusinessModel, ServiceAction>();
-            CreateMap<ServiceAction, ServiceActionBusinessModel>();
-            CreateMap<AccountTypeBusinessModel, AccountType>();
-            CreateMap<AccountType, AccountTypeBusinessModel>();
-            CreateMap<ProjectBusinessModel, Project>();
-            CreateMap<Project, ProjectBusinessModel>();
-            CreateMap<RoleBusinessModel, Role>();
-            CreateMap<Role, RoleBusinessModel>();
-            CreateMap<ServiceBusinessModel, Service>();
-            CreateMap<Service, ServiceBusinessModel>();
-            CreateMap<CurrencyBusinessModel, Currency>();
-            CreateMap<Currency, CurrencyBusinessModel>();
-            CreateMap<ProjectAccountTypeBusinessModel, ProjectAccountType>();
-            CreateMap<ProjectAccountType, ProjectAccountTypeBusinessModel>();
-            CreateMap<RolePermissionBusinessModel, RolePermission>();
-            CreateMap<RolePermission, RolePermissionBusinessModel>();
-            CreateMap<RoleServiceItemBusinessModel, RoleServiceItem>();
-            CreateMap<RoleServiceItem, RoleServiceItemBusinessModel>();
-            CreateMap<ServiceItemBusinessModel, ServiceItem>();
-            CreateMap<ServiceItem, ServiceItemBusinessModel>();
-            CreateMap<TenantWalletBusinessModel, TenantWallet>();
-            CreateMap<TenantWallet, TenantWalletBusinessModel>();
-            CreateMap<TenantWalletTransactionBusinessModel, TenantWalletTransaction>();
-            CreateMap<TenantWalletTransaction, TenantWalletTransactionBusinessModel>();
-            CreateMap<TenantProjectBusinessModel, TenentProject>();
-            CreateMap<TenentProject, TenantProjectBusinessModel>();
-            CreateMap<UserInfoBusinessModel, UserInfo>();
-            CreateMap<UserInfo, UserInfoBusinessModel>();
-            CreateMap<UserInRoleBusinessModel, UserInRole>();
-            CreateMap<UserInRole, UserInRoleBusinessModel>();
-            CreateMap<UserPermissionBusinessModel, UserPermission>();
-            CreateMap<UserPermission, UserPermissionBusinessModel>();
-            CreateMap<UserServiceItemBusinessModel, UserServiceItem>();
-            CreateMap<UserServiceItem, UserServiceItemBusinessModel>();
-            CreateMap<TenantBusinessModel, Tenant>();
-            CreateMap<Tenant, TenantBusinessModel>();
-            CreateMap<LanguageBusinessModel, Language>();
-            CreateMap<Language, LanguageBusinessModel>();
-            CreateMap<TempRolePermissionBusinessModel, TempRolePermission>();
-            CreateMap<TempRolePermission, TempRolePermissionBusinessModel>();
-            CreateMap<LoginStatusBusinessModel, LoginStatus>();
-            CreateMap<LoginStatus, LoginStatusBusinessModel>();
+            CreateMap<UserDeviceBusinessModel, UserDevice>().ReverseMap();
+            CreateMap<QRLoginTransactionBusinessModel, QRLoginTransaction>().ReverseMap();
+            CreateMap<TempRoleBusinessModel, TempRole>().ReverseMap();
+            CreateMap<LoginHistoryBusinessModel, LoginHistory>().ReverseMap();
+            CreateMap<ServiceActionBusinessModel, ServiceAction>().ReverseMap();
+            CreateMap<AccountTypeBusinessModel, AccountType>().ReverseMap();
+            CreateMap<ProjectBusinessModel, Project>().ReverseMap();
+            CreateMap<RoleBusinessModel, Role>().ReverseMap();
+            CreateMap<ServiceBusinessModel, Service>().ReverseMap();
+            CreateMap<CurrencyBusinessModel, Currency>().ReverseMap();
+            CreateMap<ProjectAccountTypeBusinessModel, ProjectAccountType>().ReverseMap();
+            CreateMap<RolePermissionBusinessModel, RolePermission>().ReverseMap();
+            CreateMap<RoleServiceItemBusinessModel, RoleServiceItem>().ReverseMap();
+            CreateMap<ServiceItemBusinessModel, ServiceItem>().ReverseMap();
+            CreateMap<TenantWalletBusinessModel, TenantWallet>().ReverseMap();
+            CreateMap<TenantWalletTransactionBusinessModel, TenantWalletTransaction>().ReverseMap();
+            CreateMap<TenantProjectBusinessModel, TenentProject>().ReverseMap();
+            CreateMap<UserInfoBusinessModel, UserInfo>().ReverseMap();
+            CreateMap<UserInRoleBusinessModel, UserInRole>().ReverseMap();
+            CreateMap<UserPermissionBusinessModel, UserPermission>().ReverseMap();
+            CreateMap<UserServiceItemBusinessModel, UserServiceItem>().ReverseMap();
+            CreateMap<TenantBusinessModel, Tenant>().ReverseMap();
+            CreateMap<LanguageBusinessModel, Language>().ReverseMap();
+            CreateMap<TempRolePermissionBusinessModel, TempRolePermission>().ReverseMap();
+            CreateMap<LoginStatusBusinessModel, LoginStatus>().ReverseMap();
+            CreateMap<ProjectCategory, ProjectCategoryBusinessModel>().ReverseMap();
+
         }
 
     }

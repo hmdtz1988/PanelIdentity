@@ -11,9 +11,4 @@
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Action\" />
-    <Folder Include="BusinessModelRule\" />
-  </ItemGroup>
-
 </Project>

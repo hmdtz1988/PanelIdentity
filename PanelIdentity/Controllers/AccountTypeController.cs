@@ -11,11 +11,11 @@ namespace PanelIdentity
     {  
         private AccountTypeAction action = new AccountTypeAction();  
         [HttpGet("{id}")]  
-       public async Task<IResult> Get(Int64 id)   
+       public async Task<IResult> Get(Int64 id, string includeProperties)   
        {   
            try   
            {   
-               var data = await action.Get(id);   
+               var data = await action.Get(id, includeProperties);   
                return new SuccessDataResult<AccountTypeBusinessModel>(data, 1);  
            }   
            catch (Exception ex)   
@@ -29,8 +29,8 @@ namespace PanelIdentity
             try    
             {    
                 var data = HasPaging(model)    
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<AccountTypeBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies)    
-                    : await action.GetAll(GetFilterExpression<AccountTypeBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies);    
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<AccountTypeBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
+                    : await action.GetAll(GetFilterExpression<AccountTypeBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
                 var count = await Count(model);  
                 return new SuccessDataResult<IList<AccountTypeBusinessModel>>(data, count);  
             }    
@@ -45,8 +45,8 @@ namespace PanelIdentity
             try    
             {    
                 var data = HasPaging(model)    
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<AccountTypeBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies)    
-                    : await action.GetAll(GetSuggestionExpression<AccountTypeBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies);    
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<AccountTypeBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
+                    : await action.GetAll(GetSuggestionExpression<AccountTypeBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
                 var count = await Count(model);    
                 return new SuccessDataResult<IList<AccountTypeBusinessModel>>(data, count);  
             }    
@@ -69,11 +69,11 @@ namespace PanelIdentity
             }  
         }    
         [HttpPost]    
-        public IResult Post([FromBody] AccountTypeBusinessModel input)    
+        public async Task<IResult> Post([FromBody] AccountTypeBusinessModel input)    
         {    
             try    
             {  
-                action.Add(input);  
+                input = await action.Add(input);  
                 return new SuccessDataResult<AccountTypeBusinessModel>(input, 1);  
             }  
             catch (Exception ex)    

@@ -38,12 +38,12 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.CurrencyDao.GetByKey(input, includeProperties);  
        }  
-       public void Add(CurrencyBusinessModel input)  
+       public async Task<CurrencyBusinessModel> Add(CurrencyBusinessModel input)  
        {  
            CurrencyBusinessRule obj = new CurrencyBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
                throw new Exception(obj.BrokenRules.ToString());  
-           FactoryContainer.Factory.CurrencyDao.Create(input);  
+           return await FactoryContainer.Factory.CurrencyDao.Create(input);  
        }  
        public void Modify(CurrencyBusinessModel input)  
        {  

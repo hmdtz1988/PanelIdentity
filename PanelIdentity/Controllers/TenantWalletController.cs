@@ -11,11 +11,11 @@ namespace PanelIdentity.Controllers
     {  
         private TenantWalletAction action = new TenantWalletAction();  
         [HttpGet("{id}")]  
-       public async Task<IResult> Get(Int64 id)   
+       public async Task<IResult> Get(Int64 id, string includeProperties)   
        {   
            try   
            {   
-               var data = await action.Get(id);   
+               var data = await action.Get(id, includeProperties);   
                return new SuccessDataResult<TenantWalletBusinessModel>(data, 1);  
            }   
            catch (Exception ex)   
@@ -29,8 +29,8 @@ namespace PanelIdentity.Controllers
             try    
             {    
                 var data = HasPaging(model)    
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies)    
-                    : await action.GetAll(GetFilterExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies);    
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
+                    : await action.GetAll(GetFilterExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
                 var count = await Count(model);  
                 return new SuccessDataResult<IList<TenantWalletBusinessModel>>(data, count);  
             }    
@@ -45,8 +45,8 @@ namespace PanelIdentity.Controllers
             try    
             {    
                 var data = HasPaging(model)    
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies)    
-                    : await action.GetAll(GetSuggestionExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies);    
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
+                    : await action.GetAll(GetSuggestionExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
                 var count = await Count(model);    
                 return new SuccessDataResult<IList<TenantWalletBusinessModel>>(data, count);  
             }    
@@ -69,11 +69,11 @@ namespace PanelIdentity.Controllers
             }  
         }    
         [HttpPost]    
-        public IResult Post([FromBody] TenantWalletBusinessModel input)    
+        public async Task<IResult> Post([FromBody] TenantWalletBusinessModel input)    
         {    
             try    
             {  
-                action.Add(input);  
+                input = await action.Add(input);  
                 return new SuccessDataResult<TenantWalletBusinessModel>(input, 1);  
             }  
             catch (Exception ex)    

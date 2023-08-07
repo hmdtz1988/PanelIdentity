@@ -38,12 +38,12 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.ProjectAccountTypeDao.GetByKey(input, includeProperties);  
        }  
-       public void Add(ProjectAccountTypeBusinessModel input)  
+       public async Task<ProjectAccountTypeBusinessModel> Add(ProjectAccountTypeBusinessModel input)  
        {  
            ProjectAccountTypeBusinessRule obj = new ProjectAccountTypeBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
                throw new Exception(obj.BrokenRules.ToString());  
-           FactoryContainer.Factory.ProjectAccountTypeDao.Create(input);  
+           return await FactoryContainer.Factory.ProjectAccountTypeDao.Create(input);  
        }  
        public void Modify(ProjectAccountTypeBusinessModel input)  
        {  

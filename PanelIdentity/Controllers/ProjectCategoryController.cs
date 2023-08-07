@@ -11,11 +11,11 @@ namespace PanelIdentity.Controllers
     {
         private ProjectCategoryAction action = new ProjectCategoryAction();
         [HttpGet("{id}")]
-        public async Task<IResult> Get(Int64 id)
+        public async Task<IResult> Get(Int64 id, string includeProperties)
         {
             try
             {
-                var data = await action.Get(id);
+                var data = await action.Get(id, includeProperties);
                 return new SuccessDataResult<ProjectCategoryBusinessModel>(data, 1);
             }
             catch (Exception ex)
@@ -29,8 +29,8 @@ namespace PanelIdentity.Controllers
             try
             {
                 var data = HasPaging(model)
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<ProjectCategoryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies)
-                    : await action.GetAll(GetFilterExpression<ProjectCategoryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies);
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<ProjectCategoryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)
+                    : await action.GetAll(GetFilterExpression<ProjectCategoryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);
                 var count = await Count(model);
                 return new SuccessDataResult<IList<ProjectCategoryBusinessModel>>(data, count);
             }
@@ -45,8 +45,8 @@ namespace PanelIdentity.Controllers
             try
             {
                 var data = HasPaging(model)
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<ProjectCategoryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies)
-                    : await action.GetAll(GetSuggestionExpression<ProjectCategoryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies);
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<ProjectCategoryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)
+                    : await action.GetAll(GetSuggestionExpression<ProjectCategoryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);
                 var count = await Count(model);
                 return new SuccessDataResult<IList<ProjectCategoryBusinessModel>>(data, count);
             }
@@ -69,11 +69,11 @@ namespace PanelIdentity.Controllers
             }
         }
         [HttpPost]
-        public IResult Post([FromBody] ProjectCategoryBusinessModel input)
+        public async Task<IResult> Post([FromBody] ProjectCategoryBusinessModel input)
         {
             try
             {
-                action.Add(input);
+                input = await action.Add(input);
                 return new SuccessDataResult<ProjectCategoryBusinessModel>(input, 1);
             }
             catch (Exception ex)

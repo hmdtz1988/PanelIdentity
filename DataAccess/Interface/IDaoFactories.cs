@@ -42,5 +42,7 @@ namespace DataAccess.Interfaces
         IUserServiceItemDao UserServiceItemDao { get; }
         ITempRolePermissionDao TempRolePermissionDao { get; }
         IProjectCategoryDao ProjectCategoryDao { get; }
+
+        IUserTenantDao UserTenantDao { get; }
     }
 }

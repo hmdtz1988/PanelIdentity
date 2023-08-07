@@ -137,14 +137,14 @@ namespace PanelIdentity.Controllers
                 {
                     Random rnd = new Random();
                     var disposablePassword = rnd.Next(13024, 100000);
-                    var user = await userAction.Get(userbyMobile.FirstOrDefault().UserInfoId.Value, null);
+                    var user = await userAction.Get(userbyMobile.FirstOrDefault().UserInfoId.Value, "UserTenants.Tenant");
                     user.ActivationCode = disposablePassword.ToString();
                     userAction.Modify(user);
                     List<String> str = new List<string>();
                     var sendData = sendSMSService.VerifySMS(mobileNumber, (user.FirstName + "" + user.LastName).Replace(" ","").Trim() ,disposablePassword.ToString());
                     if (sendData.IsCompleted)
                     {
-                        result.Tenants = userbyMobile.FirstOrDefault().UserTenants.ToList(); // TODO IMPORTANT
+                        result.Tenants = userbyMobile.FirstOrDefault().UserTenants?.Select(x=> x.Tenant).ToList(); // TODO IMPORTANT
                         result.UserInfoType = 1;
                         return new SuccessDataResult<UserLoginRequestResponseViewModel>(result);
                     }
@@ -154,10 +154,11 @@ namespace PanelIdentity.Controllers
                 else
                 {
                     var userName = input.UserInfo;
-                    var userbyName = await userAction.GetAll(x => x.UserName == userName);
+                    var userbyName = await userAction.GetAll(x => x.UserName == userName, "", "UserTenants.Tenant");
                     if (userbyName != null && userbyName.Count != 0)
                     {
                         var user = userbyName.FirstOrDefault();
+                        result.Tenants = userbyMobile.FirstOrDefault().UserTenants?.Select(x => x.Tenant).ToList(); // TODO IMPORTANT
                         result.UserInfoType = 2;
                         return new SuccessDataResult<UserLoginRequestResponseViewModel>(result);
                     }

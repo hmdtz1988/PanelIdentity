@@ -25,6 +25,6 @@ namespace BusinessModel
 		public TimeSpan? ToTime { get; set; }  
 		public DateTime CreationDate { get; set; }  
 		public LoginHistoryBusinessModel? CurrentLogin { get; set; }
-		public IList<TenantBusinessModel>? UserTenants { get; set; }
+		public IList<UserTenantBusinessModel>? UserTenants { get; set; }
     }  
 }  

@@ -11,11 +11,11 @@ namespace PanelIdentity.Controllers
     {  
         private TenantAction action = new TenantAction();  
         [HttpGet("{id}")]  
-       public async Task<IResult> Get(Int64 id)   
+       public async Task<IResult> Get(Int64 id, string includeProperties)   
        {   
            try   
            {   
-               var data = await action.Get(id);   
+               var data = await action.Get(id, includeProperties);   
                return new SuccessDataResult<TenantBusinessModel>(data, 1);  
            }   
            catch (Exception ex)   
@@ -29,8 +29,8 @@ namespace PanelIdentity.Controllers
             try    
             {    
                 var data = HasPaging(model)    
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<TenantBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies)    
-                    : await action.GetAll(GetFilterExpression<TenantBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies);    
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<TenantBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
+                    : await action.GetAll(GetFilterExpression<TenantBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
                 var count = await Count(model);  
                 return new SuccessDataResult<IList<TenantBusinessModel>>(data, count);  
             }    
@@ -45,8 +45,8 @@ namespace PanelIdentity.Controllers
             try    
             {    
                 var data = HasPaging(model)    
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<TenantBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies)    
-                    : await action.GetAll(GetSuggestionExpression<TenantBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies);    
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<TenantBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
+                    : await action.GetAll(GetSuggestionExpression<TenantBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
                 var count = await Count(model);    
                 return new SuccessDataResult<IList<TenantBusinessModel>>(data, count);  
             }    
@@ -69,11 +69,17 @@ namespace PanelIdentity.Controllers
             }  
         }    
         [HttpPost]    
-        public IResult Post([FromBody] TenantBusinessModel input)    
+        public async Task<IResult> Post([FromBody] TenantBusinessModel input)    
         {    
             try    
-            {  
-                action.Add(input);  
+            {
+                var userId = input.UserId;
+                input = await action.Add(input);  
+                if (input!= null && input.TenantId !=null && userId != null)
+                {
+                    UserTenantAction userInfoAction = new UserTenantAction();
+                    userInfoAction.Add(new UserTenantBusinessModel { UserId = userId.Value, TenantId = input.TenantId.Value, IsActive = true, CreationDate = DateTime.Now });
+                }
                 return new SuccessDataResult<TenantBusinessModel>(input, 1);  
             }  
             catch (Exception ex)    

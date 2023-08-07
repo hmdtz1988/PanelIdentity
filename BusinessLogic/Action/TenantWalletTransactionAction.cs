@@ -38,12 +38,12 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.TenantWalletTransactionDao.GetByKey(input, includeProperties);  
        }  
-       public void Add(TenantWalletTransactionBusinessModel input)  
+       public async Task<TenantWalletTransactionBusinessModel> Add(TenantWalletTransactionBusinessModel input)  
        {  
            TenantWalletTransactionBusinessRule obj = new TenantWalletTransactionBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
                throw new Exception(obj.BrokenRules.ToString());  
-           FactoryContainer.Factory.TenantWalletTransactionDao.Create(input);  
+           return await FactoryContainer.Factory.TenantWalletTransactionDao.Create(input);  
        }  
        public void Modify(TenantWalletTransactionBusinessModel input)  
        {  

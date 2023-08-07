@@ -67,6 +67,8 @@ public partial class PanelIdentityContext : DbContext
 
     public virtual DbSet<UserServiceItem> UserServiceItems { get; set; }
 
+    public virtual DbSet<UserTenant> UserTenants { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=188.213.196.174;Database=PanelIdentity;user id=sa;password=%Hmd0914%;TrustServerCertificate=True");
@@ -523,6 +525,23 @@ public partial class PanelIdentityContext : DbContext
                 .HasForeignKey(d => d.UserInfoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UserServiceItem_UserInfo");
+        });
+
+        modelBuilder.Entity<UserTenant>(entity =>
+        {
+            entity.ToTable("UserTenant");
+
+            entity.Property(e => e.CreationDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.Tenant).WithMany(p => p.UserTenants)
+                .HasForeignKey(d => d.TenantId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserTenant_Tenant");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserTenants)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserTenant_UserTenant");
         });
 
         OnModelCreatingPartial(modelBuilder);

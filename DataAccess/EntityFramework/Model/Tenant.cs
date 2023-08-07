@@ -56,4 +56,6 @@ public partial class Tenant
     public virtual ICollection<UserInRole> UserInRoles { get; set; } = new List<UserInRole>();
 
     public virtual ICollection<UserPermission> UserPermissions { get; set; } = new List<UserPermission>();
+
+    public virtual ICollection<UserTenant> UserTenants { get; set; } = new List<UserTenant>();
 }

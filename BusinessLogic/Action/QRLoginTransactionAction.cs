@@ -38,12 +38,12 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.QRLoginTransactionDao.GetByKey(input, includeProperties);  
        }  
-       public void Add(QRLoginTransactionBusinessModel input)  
+       public async Task<QRLoginTransactionBusinessModel> Add(QRLoginTransactionBusinessModel input)  
        {  
            QRLoginTransactionBusinessRule obj = new QRLoginTransactionBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
                throw new Exception(obj.BrokenRules.ToString());  
-           FactoryContainer.Factory.QRLoginTransactionDao.Create(input);  
+           return await FactoryContainer.Factory.QRLoginTransactionDao.Create(input);  
        }  
        public void Modify(QRLoginTransactionBusinessModel input)  
        {  

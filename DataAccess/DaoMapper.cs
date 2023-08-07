@@ -203,6 +203,13 @@ namespace DataAccess.EntityFramework.MS_SQL
                     result = typeof(ProjectCategoryBusinessModel);
                     break;
 
+                case "UserTenantBusinessModel":
+                    result = typeof(UserTenant);
+                    break;
+                case "UserTenant":
+                    result = typeof(UserTenantBusinessModel);
+                    break;
+
                 case "UserInfoBusinessModel":
                     result = typeof(UserInfo);
                     break;

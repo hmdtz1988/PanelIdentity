@@ -38,12 +38,12 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.LanguageDao.GetByKey(input, includeProperties);  
        }  
-       public void Add(LanguageBusinessModel input)  
+       public async Task<LanguageBusinessModel> Add(LanguageBusinessModel input)  
        {  
            LanguageBusinessRule obj = new LanguageBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
                throw new Exception(obj.BrokenRules.ToString());  
-           FactoryContainer.Factory.LanguageDao.Create(input);  
+           return await FactoryContainer.Factory.LanguageDao.Create(input);  
        }  
        public void Modify(LanguageBusinessModel input)  
        {  

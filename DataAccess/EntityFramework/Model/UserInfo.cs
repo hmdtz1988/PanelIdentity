@@ -56,4 +56,6 @@ public partial class UserInfo
     public virtual ICollection<UserPermission> UserPermissions { get; set; } = new List<UserPermission>();
 
     public virtual ICollection<UserServiceItem> UserServiceItems { get; set; } = new List<UserServiceItem>();
+
+    public virtual ICollection<UserTenant> UserTenants { get; set; } = new List<UserTenant>();
 }

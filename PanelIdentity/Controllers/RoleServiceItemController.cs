@@ -11,11 +11,11 @@ namespace PanelIdentity.Controllers
     {  
         private RoleServiceItemAction action = new RoleServiceItemAction();  
         [HttpGet("{id}")]  
-       public async Task<IResult> Get(Int64 id)   
+       public async Task<IResult> Get(Int64 id, string includeProperties)   
        {   
            try   
            {   
-               var data = await action.Get(id);   
+               var data = await action.Get(id, includeProperties);   
                return new SuccessDataResult<RoleServiceItemBusinessModel>(data, 1);  
            }   
            catch (Exception ex)   
@@ -29,8 +29,8 @@ namespace PanelIdentity.Controllers
             try    
             {    
                 var data = HasPaging(model)    
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<RoleServiceItemBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies)    
-                    : await action.GetAll(GetFilterExpression<RoleServiceItemBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies);    
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<RoleServiceItemBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
+                    : await action.GetAll(GetFilterExpression<RoleServiceItemBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
                 var count = await Count(model);  
                 return new SuccessDataResult<IList<RoleServiceItemBusinessModel>>(data, count);  
             }    
@@ -45,8 +45,8 @@ namespace PanelIdentity.Controllers
             try    
             {    
                 var data = HasPaging(model)    
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<RoleServiceItemBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies)    
-                    : await action.GetAll(GetSuggestionExpression<RoleServiceItemBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperies);    
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<RoleServiceItemBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
+                    : await action.GetAll(GetSuggestionExpression<RoleServiceItemBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
                 var count = await Count(model);    
                 return new SuccessDataResult<IList<RoleServiceItemBusinessModel>>(data, count);  
             }    
@@ -69,11 +69,11 @@ namespace PanelIdentity.Controllers
             }  
         }    
         [HttpPost]    
-        public IResult Post([FromBody] RoleServiceItemBusinessModel input)    
+        public async Task<IResult> Post([FromBody] RoleServiceItemBusinessModel input)    
         {    
             try    
             {  
-                action.Add(input);  
+                input = await action.Add(input);  
                 return new SuccessDataResult<RoleServiceItemBusinessModel>(input, 1);  
             }  
             catch (Exception ex)    

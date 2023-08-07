@@ -39,7 +39,7 @@ namespace DataAccess.EntityFramework.MS_SQL
             CreateMap<TempRolePermissionBusinessModel, TempRolePermission>().ReverseMap();
             CreateMap<LoginStatusBusinessModel, LoginStatus>().ReverseMap();
             CreateMap<ProjectCategory, ProjectCategoryBusinessModel>().ReverseMap();
-
+            CreateMap<UserTenant, UserTenantBusinessModel>().ReverseMap();
         }
 
     }

@@ -38,12 +38,12 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.ServiceDao.GetByKey(input, includeProperties);  
        }  
-       public void Add(ServiceBusinessModel input)  
+       public async Task<ServiceBusinessModel> Add(ServiceBusinessModel input)  
        {  
            ServiceBusinessRule obj = new ServiceBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
                throw new Exception(obj.BrokenRules.ToString());  
-           FactoryContainer.Factory.ServiceDao.Create(input);  
+           return await FactoryContainer.Factory.ServiceDao.Create(input);  
        }  
        public void Modify(ServiceBusinessModel input)  
        {  

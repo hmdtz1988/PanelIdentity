@@ -5,6 +5,7 @@ namespace BusinessModel
 	public class TenantBusinessModel : BusinessModelBase  
 	{  
 		public Int64? TenantId { get; set; }  
+		public Int64? UserId { get; set; }
 		public string Title { get; set; }  
 		public Int64? ParentId { get; set; }
 		public bool IsDemo { get; set; }  

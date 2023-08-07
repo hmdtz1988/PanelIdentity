@@ -38,12 +38,12 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.RoleDao.GetByKey(input, includeProperties);  
        }  
-       public void Add(RoleBusinessModel input)  
+       public async Task<RoleBusinessModel> Add(RoleBusinessModel input)  
        {  
            RoleBusinessRule obj = new RoleBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
                throw new Exception(obj.BrokenRules.ToString());  
-           FactoryContainer.Factory.RoleDao.Create(input);  
+           return await FactoryContainer.Factory.RoleDao.Create(input);  
        }  
        public void Modify(RoleBusinessModel input)  
        {  

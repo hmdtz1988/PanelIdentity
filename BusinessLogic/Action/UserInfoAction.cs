@@ -34,17 +34,17 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.UserInfoDao.GetByKey(input, includeProperties);  
        }  
-       public async void Add(UserInfoBusinessModel input)  
+       public async Task<UserInfoBusinessModel> Add(UserInfoBusinessModel input)  
        {
-            var checkDublicate = await GetAll(x => x.MobileNo == input.MobileNo || (input.Email != "" && x.Email == input.Email) || (input.UserName != "" && x.UserName == input.UserName) || (input.NationalCode != "" && x.NationalCode == input.NationalCode));
-            
-            if (checkDublicate!= null && checkDublicate.Count > 0)
-                throw new Exception("Dublicate User");
+            var checkDublicate = await GetAll(x => x.MobileNo == input.MobileNo || (input.Email != "" && x.Email == input.Email) || (input.UserName != "" && x.UserName == input.UserName) || (input.NationalCode != "" && x.NationalCode == input.NationalCode),"", "UserTenants");
+
+            if (checkDublicate != null && checkDublicate.Count > 0)
+                return checkDublicate.FirstOrDefault();
 
             UserInfoBusinessRule obj = new UserInfoBusinessRule(input);  
             if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
                 throw new Exception(obj.BrokenRules.ToString());  
-            FactoryContainer.Factory.UserInfoDao.Create(input);  
+            return await FactoryContainer.Factory.UserInfoDao.Create(input);  
        }  
        public void Modify(UserInfoBusinessModel input)  
        {  

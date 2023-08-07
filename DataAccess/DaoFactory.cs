@@ -98,6 +98,6 @@ namespace DataAccess.EntityFramework.MS_SQL
 
         public IProjectCategoryDao ProjectCategoryDao { get { return new ProjectCategoryDao(DatabaseContext); } }
 
-        
+        public IUserTenantDao UserTenantDao { get { return new UserTenantDao(DatabaseContext); } }
     }
 }

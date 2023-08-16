@@ -39,7 +39,7 @@ namespace BusinessLogic.Action
             var checkDublicate = await GetAll(x => x.MobileNo == input.MobileNo || (input.Email != "" && x.Email == input.Email) || (input.UserName != "" && x.UserName == input.UserName) || (input.NationalCode != "" && x.NationalCode == input.NationalCode),"", "UserTenants");
 
             if (checkDublicate != null && checkDublicate.Count > 0)
-                return checkDublicate.FirstOrDefault();
+                throw new Exception("User exists");
 
             UserInfoBusinessRule obj = new UserInfoBusinessRule(input);  
             if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  

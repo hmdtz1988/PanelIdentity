@@ -7,9 +7,11 @@ public partial class LoginHistory
 {
     public long LoginHistoryId { get; set; }
 
+    public Guid AccessToken { get; set; }
+
     public long UserInfoId { get; set; }
 
-    public long TenantId { get; set; }
+    public long? TenantId { get; set; }
 
     public int ProjectId { get; set; }
 
@@ -35,7 +37,7 @@ public partial class LoginHistory
 
     public virtual Project Project { get; set; } = null!;
 
-    public virtual Tenant Tenant { get; set; } = null!;
+    public virtual Tenant? Tenant { get; set; }
 
     public virtual UserInfo UserInfo { get; set; } = null!;
 }

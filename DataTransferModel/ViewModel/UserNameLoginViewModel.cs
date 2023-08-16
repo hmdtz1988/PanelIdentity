@@ -18,6 +18,6 @@ namespace ViewModel
         /// </summary>
         public string Password { get; set; }
 
-        public Int64 TenantId { get; set; }
+        public Int64? TenantId { get; set; }
     }
 }

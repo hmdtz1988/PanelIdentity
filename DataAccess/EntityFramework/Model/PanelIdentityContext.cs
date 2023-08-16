@@ -114,6 +114,7 @@ public partial class PanelIdentityContext : DbContext
 
             entity.ToTable("LoginHistory");
 
+            entity.Property(e => e.AccessToken).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Chanel).HasMaxLength(50);
             entity.Property(e => e.ExpireDateTime).HasColumnType("datetime");
             entity.Property(e => e.LoginDateTime).HasColumnType("datetime");
@@ -135,7 +136,6 @@ public partial class PanelIdentityContext : DbContext
 
             entity.HasOne(d => d.Tenant).WithMany(p => p.LoginHistories)
                 .HasForeignKey(d => d.TenantId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_LoginHistory_Tenant");
 
             entity.HasOne(d => d.UserInfo).WithMany(p => p.LoginHistories)

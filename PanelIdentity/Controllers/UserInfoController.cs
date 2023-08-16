@@ -142,7 +142,7 @@ namespace PanelIdentity.Controllers
             {
                 var result = new UserInfoBusinessModel();
                 var action = new UserInfoAction();
-                var userInfo = await action.GetAll(x => x.MobileNo == mobileNumber && x.ActivationCode == activeCode && x.ActivationCode != "");
+                var userInfo = await action.GetAll(x => x.MobileNo == mobileNumber && x.ActivationCode == activeCode && x.ActivationCode != "","","UserTenants");
                 if (userInfo != null && userInfo.Count > 0)
                 {
                     var user = await action.Get(userInfo.FirstOrDefault().UserInfoId.Value, null);
@@ -166,10 +166,10 @@ namespace PanelIdentity.Controllers
             {
                 var result = new UserInfoBusinessModel();
                 var action = new UserInfoAction();
-                var userInfo = await action.GetAll(x => x.UserName == userName && x.Password == Security.MD5Security.GetMd5Hash(password));
+                var userInfo = await action.GetAll(x => x.UserName == userName && x.Password == Security.MD5Security.GetMd5Hash(password),"","UserTenants");
                 if (userInfo != null && userInfo.Count > 0)
                 {
-                    var user = await action.Get(userInfo.FirstOrDefault().UserInfoId.Value, null);
+                    var user = userInfo.FirstOrDefault();
                     user.ActivationCode = string.Empty;
                     action.Modify(user);
                     result = user;

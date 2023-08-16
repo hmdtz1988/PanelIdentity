@@ -17,6 +17,6 @@ namespace ViewModel
         /// </summary>
         public string ActiveCode { get; set; }
 
-        public Int64 TenantId { get; set; }
+        public Int64? TenantId { get; set; }
     }
 }

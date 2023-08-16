@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Localization;
 using PanelIdentity.Security;
 using System.Globalization;
 using PanelIdentity.Extensions;
+using Identity.Business.DependencyResolvers.Autofac;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager Configuration = builder.Configuration;
@@ -25,8 +26,6 @@ builder.Services.AddAuthentication("Bearer")
 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Bearer", null);
 
 builder.Services.AddAuth(tokenOptions, Configuration);
-
-
 #endregion
 
 
@@ -37,6 +36,12 @@ builder.Services.AddAuth(tokenOptions, Configuration);
 //builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
 //                .ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
 //#endregion
+
+#region Autofac
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+            .ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
+#endregion
+
 #region SETTINGS
 builder.Services.AddSettingServices(Configuration);
 #endregion

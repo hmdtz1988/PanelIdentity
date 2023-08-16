@@ -4,9 +4,10 @@ namespace BusinessModel
 {  
 	public class LoginHistoryBusinessModel : BusinessModelBase  
 	{  
-		public Int64? LoginHistoryId { get; set; }  
-		public Int64 UserInfoId { get; set; }  
-		public Int64 TenantId { get; set; }  
+		public Int64? LoginHistoryId { get; set; }
+        public Guid? AccessToken { get; set; }
+        public Int64 UserInfoId { get; set; }  
+		public Int64? TenantId { get; set; }  
 		public Int64 ProjectId { get; set; }  
 		public Int64 LoginStatusId { get; set; }  
 		public string UserHostAddress { get; set; }  

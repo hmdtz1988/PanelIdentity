@@ -178,7 +178,7 @@ namespace PanelIdentity.Controllers
                         return new SuccessDataResult<UserLoginRequestResponseViewModel>(result);
                     }
                     else
-                        return new ErrorDataResult<UserLoginRequestResponseViewModel>("کاربر دسترسی به هیچ شرکتی ندارد");
+                        return new ErrorDataResult<UserLoginRequestResponseViewModel>("SMS Sender Error");
                 }
                 else
                 {

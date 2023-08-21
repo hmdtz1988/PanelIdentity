@@ -102,7 +102,11 @@ namespace PanelIdentity
 
         public Expression<Func<T, bool>> GetSuggestionExpression<T>(List<Filter> filters)
         {
-            filters = new List<Filter>();
+            if (filters == null)
+                filters = new List<Filter>();
+
+            List<Expression> filterExpressions = new List<Expression>();
+
             if (typeof(T).GetProperties().Where(z => z.Name == "TenantId").Count() > 0)
             {
                 var currentToke = GetCurrentToken().Result;
@@ -119,15 +123,18 @@ namespace PanelIdentity
             if (filters == null || filters.Count() == 0)
                 return null;
 
-            List<Expression> filterExpressions = new List<Expression>();
+
             var parameterExpr = Expression.Parameter(typeof(T), "x");
             foreach (var item in filters)
                 filterExpressions.Add(GetExpression(typeof(T), item.Property, item.Operation, item.Values, parameterExpr));
 
             Expression result = filterExpressions[0];
 
-            for (int index = 1; index < filterExpressions.Count; index++)
+            for (int index = 1; index < filterExpressions.Count - 1; index++)
                 result = Expression.Or(result, filterExpressions[index]);
+
+            if (filterExpressions.Count > 1)
+                result = Expression.And(result, filterExpressions[filterExpressions.Count - 1]);
 
             return Expression.Lambda<Func<T, bool>>(result, parameterExpr);
         }

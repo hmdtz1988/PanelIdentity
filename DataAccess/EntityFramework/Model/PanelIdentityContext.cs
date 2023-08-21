@@ -487,7 +487,7 @@ public partial class PanelIdentityContext : DbContext
             entity.Property(e => e.LastName).HasMaxLength(100);
             entity.Property(e => e.MobileNo).HasMaxLength(50);
             entity.Property(e => e.NationalCode).HasMaxLength(20);
-            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.Password).HasMaxLength(500);
             entity.Property(e => e.ToDate).HasColumnType("date");
             entity.Property(e => e.UserName).HasMaxLength(100);
         });

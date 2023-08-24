@@ -19,13 +19,13 @@ namespace BusinessLogic.Action
        }  
        public async Task<IList<TempRoleBusinessModel>> GetAll(  
            Expression<Func<TempRoleBusinessModel, bool>>? filter = null,  
-           string orderBy = "", string includeProperties = "")  
+           string orderBy = "", string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.TempRoleDao.GetAll(filter, orderBy, includeProperties);  
        }  
        public async Task<IList<TempRoleBusinessModel>> GetAll(int pageNumber, int pageSize,  
            Expression<Func<TempRoleBusinessModel, bool>>? filter = null,  
-           string orderBy = "", string includeProperties = "")  
+           string orderBy = "", string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.TempRoleDao.GetAll(pageNumber, pageSize, filter, orderBy, includeProperties  
                );  
@@ -34,7 +34,7 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.TempRoleDao.GetAllCount(filter);  
        }  
-       public async Task<TempRoleBusinessModel?> Get(Int64 input, string includeProperties = "")  
+       public async Task<TempRoleBusinessModel?> Get(Int64 input, string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.TempRoleDao.GetByKey(input, includeProperties);  
        }  

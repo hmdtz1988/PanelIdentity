@@ -19,13 +19,13 @@ namespace BusinessLogic.Action
        }  
        public async Task<IList<RolePermissionBusinessModel>> GetAll(  
            Expression<Func<RolePermissionBusinessModel, bool>>? filter = null,  
-           string orderBy = "", string includeProperties = "")  
+           string orderBy = "", string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.RolePermissionDao.GetAll(filter, orderBy, includeProperties);  
        }  
        public async Task<IList<RolePermissionBusinessModel>> GetAll(int pageNumber, int pageSize,  
            Expression<Func<RolePermissionBusinessModel, bool>>? filter = null,  
-           string orderBy = "", string includeProperties = "")  
+           string orderBy = "", string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.RolePermissionDao.GetAll(pageNumber, pageSize, filter, orderBy, includeProperties  
                );  
@@ -34,7 +34,7 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.RolePermissionDao.GetAllCount(filter);  
        }  
-       public async Task<RolePermissionBusinessModel?> Get(Int64 input, string includeProperties = "")  
+       public async Task<RolePermissionBusinessModel?> Get(Int64 input, string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.RolePermissionDao.GetByKey(input, includeProperties);  
        }  

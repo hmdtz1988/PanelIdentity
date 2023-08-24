@@ -13,9 +13,9 @@ namespace DataAccess.Interfaces
         void Delete(Int64 input);
         void Delete(T input);
         void Update(T input);
-        Task<IList<T>> GetAll(Expression<Func<T, bool>>? filter = null, string orderBy = "", string includeProperties = "");
-        Task<IList<T>> GetAll(int pageNumber, int pageSize, Expression<Func<T, bool>>? filter = null, string orderBy = "", string includeProperties = "");
+        Task<IList<T>> GetAll(Expression<Func<T, bool>>? filter = null, string orderBy = "", string? includeProperties = "");
+        Task<IList<T>> GetAll(int pageNumber, int pageSize, Expression<Func<T, bool>>? filter = null, string orderBy = "", string? includeProperties = "");
         Task<int> GetAllCount(Expression<Func<T, bool>>? filter = null);
-        Task<T> GetByKey(Int64 input, string includeProperties = "");
+        Task<T> GetByKey(Int64 input, string? includeProperties = "");
     }
 }

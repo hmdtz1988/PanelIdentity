@@ -19,13 +19,13 @@ namespace BusinessLogic.Action
        }  
        public async Task<IList<QRLoginTransactionBusinessModel>> GetAll(  
            Expression<Func<QRLoginTransactionBusinessModel, bool>>? filter = null,  
-           string orderBy = "", string includeProperties = "")  
+           string orderBy = "", string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.QRLoginTransactionDao.GetAll(filter, orderBy, includeProperties);  
        }  
        public async Task<IList<QRLoginTransactionBusinessModel>> GetAll(int pageNumber, int pageSize,  
            Expression<Func<QRLoginTransactionBusinessModel, bool>>? filter = null,  
-           string orderBy = "", string includeProperties = "")  
+           string orderBy = "", string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.QRLoginTransactionDao.GetAll(pageNumber, pageSize, filter, orderBy, includeProperties  
                );  
@@ -34,7 +34,7 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.QRLoginTransactionDao.GetAllCount(filter);  
        }  
-       public async Task<QRLoginTransactionBusinessModel?> Get(Int64 input, string includeProperties = "")  
+       public async Task<QRLoginTransactionBusinessModel?> Get(Int64 input, string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.QRLoginTransactionDao.GetByKey(input, includeProperties);  
        }  

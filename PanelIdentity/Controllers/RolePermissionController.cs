@@ -11,7 +11,7 @@ namespace PanelIdentity.Controllers
     {  
         private RolePermissionAction action = new RolePermissionAction();  
         [HttpGet("{id}")]  
-       public async Task<IResult> Get(Int64 id, string includeProperties)   
+       public async Task<IResult> Get(Int64 id, string? includeProperties)   
        {   
            try   
            {   

@@ -19,13 +19,13 @@ namespace BusinessLogic.Action
        }  
        public async Task<IList<TenantWalletTransactionBusinessModel>> GetAll(  
            Expression<Func<TenantWalletTransactionBusinessModel, bool>>? filter = null,  
-           string orderBy = "", string includeProperties = "")  
+           string orderBy = "", string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.TenantWalletTransactionDao.GetAll(filter, orderBy, includeProperties);  
        }  
        public async Task<IList<TenantWalletTransactionBusinessModel>> GetAll(int pageNumber, int pageSize,  
            Expression<Func<TenantWalletTransactionBusinessModel, bool>>? filter = null,  
-           string orderBy = "", string includeProperties = "")  
+           string orderBy = "", string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.TenantWalletTransactionDao.GetAll(pageNumber, pageSize, filter, orderBy, includeProperties  
                );  
@@ -34,7 +34,7 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.TenantWalletTransactionDao.GetAllCount(filter);  
        }  
-       public async Task<TenantWalletTransactionBusinessModel?> Get(Int64 input, string includeProperties = "")  
+       public async Task<TenantWalletTransactionBusinessModel?> Get(Int64 input, string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.TenantWalletTransactionDao.GetByKey(input, includeProperties);  
        }  

@@ -19,13 +19,13 @@ namespace BusinessLogic.Action
         }
         public async Task<IList<UserTenantBusinessModel>> GetAll(
             Expression<Func<UserTenantBusinessModel, bool>>? filter = null,
-            string orderBy = "", string includeProperties = "")
+            string orderBy = "", string? includeProperties = "")
         {
             return await FactoryContainer.Factory.UserTenantDao.GetAll(filter, orderBy, includeProperties);
         }
         public async Task<IList<UserTenantBusinessModel>> GetAll(int pageNumber, int pageSize,
             Expression<Func<UserTenantBusinessModel, bool>>? filter = null,
-            string orderBy = "", string includeProperties = "")
+            string orderBy = "", string? includeProperties = "")
         {
             return await FactoryContainer.Factory.UserTenantDao.GetAll(pageNumber, pageSize, filter, orderBy, includeProperties
                 );
@@ -34,7 +34,7 @@ namespace BusinessLogic.Action
         {
             return await FactoryContainer.Factory.UserTenantDao.GetAllCount(filter);
         }
-        public async Task<UserTenantBusinessModel?> Get(Int64 input, string includeProperties = "")
+        public async Task<UserTenantBusinessModel?> Get(Int64 input, string? includeProperties = "")
         {
             return await FactoryContainer.Factory.UserTenantDao.GetByKey(input, includeProperties);
         }

@@ -19,13 +19,13 @@ namespace BusinessLogic.Action
        }  
        public async Task<IList<CurrencyBusinessModel>> GetAll(  
            Expression<Func<CurrencyBusinessModel, bool>>? filter = null,  
-           string orderBy = "", string includeProperties = "")  
+           string orderBy = "", string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.CurrencyDao.GetAll(filter, orderBy, includeProperties);  
        }  
        public async Task<IList<CurrencyBusinessModel>> GetAll(int pageNumber, int pageSize,  
            Expression<Func<CurrencyBusinessModel, bool>>? filter = null,  
-           string orderBy = "", string includeProperties = "")  
+           string orderBy = "", string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.CurrencyDao.GetAll(pageNumber, pageSize, filter, orderBy, includeProperties  
                );  
@@ -34,7 +34,7 @@ namespace BusinessLogic.Action
        {  
            return await FactoryContainer.Factory.CurrencyDao.GetAllCount(filter);  
        }  
-       public async Task<CurrencyBusinessModel?> Get(Int64 input, string includeProperties = "")  
+       public async Task<CurrencyBusinessModel?> Get(Int64 input, string? includeProperties = "")  
        {  
            return await FactoryContainer.Factory.CurrencyDao.GetByKey(input, includeProperties);  
        }  

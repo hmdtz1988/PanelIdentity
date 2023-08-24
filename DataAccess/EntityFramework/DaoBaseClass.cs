@@ -70,12 +70,12 @@ namespace DataAccess.EntityFramework.MS_SQL
                 }
             }
         }
-        public async Task<IList<TBusinessModel>> GetAll(Expression<Func<TBusinessModel, bool>>? filter = null, string orderBy = "", string includeProperties = "")
+        public async Task<IList<TBusinessModel>> GetAll(Expression<Func<TBusinessModel, bool>>? filter = null, string orderBy = "", string? includeProperties = "")
         {
             var result = await GetQueryable(filter, orderBy, includeProperties).ToListAsync();
             return _mapper.Map<IList<TBusinessModel>>(result);
         }
-        public async Task<IList<TBusinessModel>> GetAll(int pageNumber, int pageSize, Expression<Func<TBusinessModel, bool>>? filter = null, string orderBy = "", string includeProperties = "")
+        public async Task<IList<TBusinessModel>> GetAll(int pageNumber, int pageSize, Expression<Func<TBusinessModel, bool>>? filter = null, string orderBy = "", string? includeProperties = "")
         {
             var result = await GetQueryable(filter, orderBy, includeProperties).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return _mapper.Map<IList<TBusinessModel>>(result);
@@ -84,12 +84,12 @@ namespace DataAccess.EntityFramework.MS_SQL
         {
             return await GetQueryable(filter).CountAsync();
         }
-        public async Task<TBusinessModel?> GetByKey(Int64 input, string includeProperties = "")
+        public async Task<TBusinessModel?> GetByKey(Int64 input, string? includeProperties = "")
         {
             var result = Get(input, includeProperties);
             return _mapper.Map<TBusinessModel>(result);
         }
-        private T? Get(Int64? input, string includeProperties = "")
+        private T? Get(Int64? input, string? includeProperties = "")
         {
 
              
@@ -102,7 +102,7 @@ namespace DataAccess.EntityFramework.MS_SQL
             includeProperties = DaoMapper.Map(typeof(TBusinessModel), includeProperties);
             return GetQueryable(lambda, null, includeProperties).FirstOrDefault();
         }
-        private IQueryable<T> GetQueryable(Expression<Func<TBusinessModel, bool>>? filter = null, string orderBy = "", string includeProperties = "")
+        private IQueryable<T> GetQueryable(Expression<Func<TBusinessModel, bool>>? filter = null, string orderBy = "", string? includeProperties = "")
         {
             Expression<Func<T, bool>>? filterExpr = Extensions.ConvertExpression<TBusinessModel, T>(filter);
             includeProperties = DaoMapper.Map(typeof(TBusinessModel), includeProperties);

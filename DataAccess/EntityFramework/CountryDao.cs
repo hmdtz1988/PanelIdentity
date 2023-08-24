@@ -4,9 +4,9 @@ using DataAccess.Interfaces;
 using DataAccess.EntityFramework.Model;  
 namespace DataAccess.EntityFramework.MS_SQL  
 {  
-    public class TenantWalletDao : DaoBaseClass<TenantWallet, TenantWalletBusinessModel>, ITenantWalletDao  
+    public class CountryDao : DaoBaseClass<Country, CountryBusinessModel>, ICountryDao  
     {  
-        public TenantWalletDao(DbContext context) : base(context, "TenantWalletId")  
+        public CountryDao(DbContext context) : base(context, "CountryId")  
         {  
         }  
     }  

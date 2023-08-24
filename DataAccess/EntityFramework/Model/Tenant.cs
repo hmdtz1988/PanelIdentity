@@ -11,6 +11,14 @@ public partial class Tenant
 
     public long? ParentId { get; set; }
 
+    public int? CountryId { get; set; }
+
+    public int? LanguageId { get; set; }
+
+    public int? CurrencyId { get; set; }
+
+    public int? WalletNumber { get; set; }
+
     public string? InviteKey { get; set; }
 
     public bool IsDemo { get; set; }
@@ -39,7 +47,11 @@ public partial class Tenant
 
     public long? DeletedById { get; set; }
 
+    public virtual Country? Country { get; set; }
+
     public virtual ICollection<Tenant> InverseParent { get; set; } = new List<Tenant>();
+
+    public virtual Language? Language { get; set; }
 
     public virtual ICollection<LoginHistory> LoginHistories { get; set; } = new List<LoginHistory>();
 
@@ -51,7 +63,7 @@ public partial class Tenant
 
     public virtual ICollection<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
-    public virtual ICollection<TenantWallet> TenantWallets { get; set; } = new List<TenantWallet>();
+    public virtual ICollection<TenantWalletTransaction> TenantWalletTransactions { get; set; } = new List<TenantWalletTransaction>();
 
     public virtual ICollection<UserInRole> UserInRoles { get; set; } = new List<UserInRole>();
 

@@ -6,8 +6,10 @@ namespace BusinessModel
 	{  
 		public Int64? UserInfoId { get; set; }  
 		public string NationalCode { get; set; }  
-		public string UserName { get; set; }  
-		public string MobileNo { get; set; }  
+		public string UserName { get; set; }
+
+        public string? PhoneCode { get; set; }
+        public string MobileNo { get; set; }  
 		public string Email { get; set; }  
 		public string FirstName { get; set; }  
 		public string LastName { get; set; }  

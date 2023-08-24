@@ -7,11 +7,13 @@ public partial class TenantWalletTransaction
 {
     public long TenantWalletTransactionId { get; set; }
 
+    public long TenantId { get; set; }
+
+    public int CurrencyId { get; set; }
+
     public long? ParentId { get; set; }
 
     public byte TransactionType { get; set; }
-
-    public long TenantWalletId { get; set; }
 
     public decimal Debit { get; set; }
 
@@ -57,5 +59,5 @@ public partial class TenantWalletTransaction
 
     public virtual TenantWalletTransaction? Parent { get; set; }
 
-    public virtual TenantWallet TenantWallet { get; set; } = null!;
+    public virtual Tenant Tenant { get; set; } = null!;
 }

@@ -1,5 +1,7 @@
 using BusinessLogic.BusinessModelRules;
 using BusinessModel;
+using Core.Helper;
+using DataTransferModel.ViewModel;
 using System.Linq.Expressions;
 
 namespace BusinessLogic.Action
@@ -43,15 +45,32 @@ namespace BusinessLogic.Action
 
             UserInfoBusinessRule obj = new UserInfoBusinessRule(input);  
             if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
-                throw new Exception(obj.BrokenRules.ToString());  
+                throw new Exception(obj.BrokenRules.ToString());
+
+            if (!string.IsNullOrEmpty(input.Avatar))
+            {
+                var fileName = Guid.NewGuid().ToString() + ".jpeg";
+                var fileInfo = new FileInfoViewModel() { FileName = fileName, Content = input.Avatar };
+
+                var file = RequestResponseHelper.GetPostResponseHttpWebRequest<string>("https://attachment.futurewavesco.app/api/SaveFile/SaveImage", fileInfo, "");
+                input.Avatar = "https://files.futurewavesco.app/" + fileName;
+            }
             return await FactoryContainer.Factory.UserInfoDao.Create(input);  
        }  
        public void Modify(UserInfoBusinessModel input)  
        {  
            UserInfoBusinessRule obj = new UserInfoBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Modify))  
-               throw new Exception(obj.BrokenRules.ToString());  
-           FactoryContainer.Factory.UserInfoDao.Update(input);  
+               throw new Exception(obj.BrokenRules.ToString());
+            if (!string.IsNullOrEmpty(input.Avatar) && !input.Avatar.StartsWith("https://files.futurewavesco.app/"))
+            {
+                var fileName = Guid.NewGuid().ToString() + ".jpeg";
+                var fileInfo = new FileInfoViewModel() { FileName = fileName, Content = input.Avatar };
+
+                var file = RequestResponseHelper.GetPostResponseHttpWebRequest<string>("https://attachment.futurewavesco.app/api/SaveFile/SaveImage", fileInfo, "");
+                input.Avatar = "https://files.futurewavesco.app/" + fileName;
+            }
+            FactoryContainer.Factory.UserInfoDao.Update(input);  
        }  
        public void Remove(UserInfoBusinessModel input)  
        {  

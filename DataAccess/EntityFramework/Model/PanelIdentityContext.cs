@@ -17,6 +17,8 @@ public partial class PanelIdentityContext : DbContext
 
     public virtual DbSet<AccountType> AccountTypes { get; set; }
 
+    public virtual DbSet<Country> Countries { get; set; }
+
     public virtual DbSet<Currency> Currencies { get; set; }
 
     public virtual DbSet<Language> Languages { get; set; }
@@ -50,8 +52,6 @@ public partial class PanelIdentityContext : DbContext
     public virtual DbSet<TempRolePermission> TempRolePermissions { get; set; }
 
     public virtual DbSet<Tenant> Tenants { get; set; }
-
-    public virtual DbSet<TenantWallet> TenantWallets { get; set; }
 
     public virtual DbSet<TenantWalletTransaction> TenantWalletTransactions { get; set; }
 
@@ -88,6 +88,15 @@ public partial class PanelIdentityContext : DbContext
             entity.Property(e => e.TitleFa).HasMaxLength(100);
             entity.Property(e => e.TitleFr).HasMaxLength(100);
             entity.Property(e => e.TitleTr).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<Country>(entity =>
+        {
+            entity.ToTable("Country");
+
+            entity.Property(e => e.FlagUrl).HasMaxLength(500);
+            entity.Property(e => e.PhoneCode).HasMaxLength(10);
+            entity.Property(e => e.Title).HasMaxLength(150);
         });
 
         modelBuilder.Entity<Currency>(entity =>
@@ -383,27 +392,17 @@ public partial class PanelIdentityContext : DbContext
                 .IsFixedLength();
             entity.Property(e => e.Title).HasMaxLength(500);
 
+            entity.HasOne(d => d.Country).WithMany(p => p.Tenants)
+                .HasForeignKey(d => d.CountryId)
+                .HasConstraintName("FK_Tenant_Country");
+
+            entity.HasOne(d => d.Language).WithMany(p => p.Tenants)
+                .HasForeignKey(d => d.LanguageId)
+                .HasConstraintName("FK_Tenant_Language");
+
             entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
                 .HasForeignKey(d => d.ParentId)
                 .HasConstraintName("FK_Tenant_Tenant");
-        });
-
-        modelBuilder.Entity<TenantWallet>(entity =>
-        {
-            entity.ToTable("TenantWallet");
-
-            entity.Property(e => e.CreationDate).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.WalletNo).HasMaxLength(10);
-
-            entity.HasOne(d => d.Currency).WithMany(p => p.TenantWallets)
-                .HasForeignKey(d => d.CurrencyId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TenantWallet_Currency");
-
-            entity.HasOne(d => d.Tenant).WithMany(p => p.TenantWallets)
-                .HasForeignKey(d => d.TenantId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TenantWallet_Tenant");
         });
 
         modelBuilder.Entity<TenantWalletTransaction>(entity =>
@@ -427,10 +426,10 @@ public partial class PanelIdentityContext : DbContext
                 .HasForeignKey(d => d.ParentId)
                 .HasConstraintName("FK_TenantWalletTransaction_TenantWalletTransaction");
 
-            entity.HasOne(d => d.TenantWallet).WithMany(p => p.TenantWalletTransactions)
-                .HasForeignKey(d => d.TenantWalletId)
+            entity.HasOne(d => d.Tenant).WithMany(p => p.TenantWalletTransactions)
+                .HasForeignKey(d => d.TenantId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TenantWalletTransaction_TenantWallet");
+                .HasConstraintName("FK_TenantWalletTransaction_Tenant");
         });
 
         modelBuilder.Entity<TenentProject>(entity =>
@@ -488,6 +487,7 @@ public partial class PanelIdentityContext : DbContext
             entity.Property(e => e.MobileNo).HasMaxLength(50);
             entity.Property(e => e.NationalCode).HasMaxLength(20);
             entity.Property(e => e.Password).HasMaxLength(500);
+            entity.Property(e => e.PhoneCode).HasMaxLength(50);
             entity.Property(e => e.ToDate).HasColumnType("date");
             entity.Property(e => e.UserName).HasMaxLength(100);
         });

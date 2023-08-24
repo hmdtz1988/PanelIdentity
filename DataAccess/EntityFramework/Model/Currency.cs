@@ -14,6 +14,4 @@ public partial class Currency
     public string? Code { get; set; }
 
     public virtual ICollection<ProjectAccountType> ProjectAccountTypes { get; set; } = new List<ProjectAccountType>();
-
-    public virtual ICollection<TenantWallet> TenantWallets { get; set; } = new List<TenantWallet>();
 }

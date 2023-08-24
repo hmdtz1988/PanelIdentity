@@ -177,11 +177,11 @@ namespace DataAccess.EntityFramework.MS_SQL
                 case "ServiceItem":
                     result = typeof(ServiceItemBusinessModel);
                     break;
-                case "TenantWalletBusinessModel":
-                    result = typeof(TenantWallet);
+                case "CountryBusinessModel":
+                    result = typeof(Country);
                     break;
-                case "TenantWallet":
-                    result = typeof(TenantWalletBusinessModel);
+                case "Country":
+                    result = typeof(CountryBusinessModel);
                     break;
                 case "TenantWalletTransactionBusinessModel":
                     result = typeof(TenantWalletTransaction);

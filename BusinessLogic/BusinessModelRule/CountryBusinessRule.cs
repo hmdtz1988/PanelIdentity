@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;  
 namespace BusinessLogic.BusinessModelRules  
 {  
-    public class TenantWalletBusinessRule : Decorator<TenantWalletBusinessModel>  
+    public class CountryBusinessRule : Decorator<CountryBusinessModel>  
     {  
-        public TenantWalletBusinessRule(TenantWalletBusinessModel input)  
+        public CountryBusinessRule(CountryBusinessModel input)  
             : base(input)  
         {  
         }  

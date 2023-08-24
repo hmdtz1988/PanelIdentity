@@ -11,6 +11,8 @@ public partial class UserInfo
 
     public string? UserName { get; set; }
 
+    public string? PhoneCode { get; set; }
+
     public string MobileNo { get; set; } = null!;
 
     public string? Email { get; set; }

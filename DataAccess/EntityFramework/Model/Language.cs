@@ -11,7 +11,5 @@ public partial class Language
 
     public string? Code { get; set; }
 
-    public string? Logo { get; set; }
-
-    public int CurrencyId { get; set; }
+    public virtual ICollection<Tenant> Tenants { get; set; } = new List<Tenant>();
 }

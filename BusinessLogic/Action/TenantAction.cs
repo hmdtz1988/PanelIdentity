@@ -1,7 +1,9 @@
 using BusinessLogic.BusinessModelRules;  
-using BusinessModel;  
-using System;  
-using System.Collections.Generic;  
+using BusinessModel;
+using Core.Helper;
+using DataTransferModel.ViewModel;
+using System;
+using System.Collections.Generic;
 using System.Linq;  
 using System.Linq.Expressions;  
 using System.Text;  
@@ -42,14 +44,31 @@ namespace BusinessLogic.Action
        {  
            TenantBusinessRule obj = new TenantBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
-               throw new Exception(obj.BrokenRules.ToString());  
-           return await FactoryContainer.Factory.TenantDao.Create(input);  
+               throw new Exception(obj.BrokenRules.ToString());
+
+
+            var fileName = Guid.NewGuid().ToString() + ".jpeg";
+            var fileInfo = new FileInfoViewModel() { FileName = fileName, Content = input.Logo };
+
+            var file = RequestResponseHelper.GetPostResponseHttpWebRequest<string>("https://attachment.futurewavesco.app/api/SaveFile/SaveImage", fileInfo, "");
+            input.Logo = "https://files.futurewavesco.app/" + fileName;
+
+            return await FactoryContainer.Factory.TenantDao.Create(input);  
        }  
        public void Modify(TenantBusinessModel input)  
        {  
            TenantBusinessRule obj = new TenantBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Modify))  
                throw new Exception(obj.BrokenRules.ToString());  
+
+           if (!input.Logo.StartsWith("https://files.futurewavesco.app/"))
+            {
+                var fileName = Guid.NewGuid().ToString() + ".jpeg";
+                var fileInfo = new FileInfoViewModel() { FileName = fileName, Content = input.Logo };
+
+                var file = RequestResponseHelper.GetPostResponseHttpWebRequest<string>("https://attachment.futurewavesco.app/api/SaveFile/SaveImage", fileInfo, "");
+                input.Logo = "https://files.futurewavesco.app/" + fileName;
+            }
            FactoryContainer.Factory.TenantDao.Update(input);  
        }  
        public void Remove(TenantBusinessModel input)  

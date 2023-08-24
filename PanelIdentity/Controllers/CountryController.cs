@@ -6,21 +6,21 @@ using Core.Extensions;
 using IResult = Core.Utilities.Results.IResult;  
 namespace PanelIdentity.Controllers  
 {  
-    [Route("api/TenantWallet/[action]")]  
-    public class TenantWalletController : BaseApiController  
+    [Route("api/Country/[action]")]  
+    public class CountryController : BaseApiController  
     {  
-        private TenantWalletAction action = new TenantWalletAction();  
+        private CountryAction action = new CountryAction();  
         [HttpGet("{id}")]  
        public async Task<IResult> Get(Int64 id, string includeProperties)   
        {   
            try   
            {   
                var data = await action.Get(id, includeProperties);   
-               return new SuccessDataResult<TenantWalletBusinessModel>(data, 1);  
+               return new SuccessDataResult<CountryBusinessModel>(data, 1);  
            }   
            catch (Exception ex)   
            {   
-               return new ErrorDataResult<TenantWalletBusinessModel>(message: ServerException(ex).Message);  
+               return new ErrorDataResult<CountryBusinessModel>(message: ServerException(ex).Message);  
            }   
        }   
         [HttpPost]    
@@ -29,14 +29,14 @@ namespace PanelIdentity.Controllers
             try    
             {    
                 var data = HasPaging(model)    
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
-                    : await action.GetAll(GetFilterExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetFilterExpression<CountryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
+                    : await action.GetAll(GetFilterExpression<CountryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
                 var count = await Count(model);  
-                return new SuccessDataResult<IList<TenantWalletBusinessModel>>(data, count);  
+                return new SuccessDataResult<IList<CountryBusinessModel>>(data, count);  
             }    
             catch (Exception ex)    
             {  
-                return new ErrorDataResult<IList<TenantWalletBusinessModel>>(message: ServerException(ex).Message);  
+                return new ErrorDataResult<IList<CountryBusinessModel>>(message: ServerException(ex).Message);  
             }    
         }    
         [HttpPost]    
@@ -45,14 +45,14 @@ namespace PanelIdentity.Controllers
             try    
             {    
                 var data = HasPaging(model)    
-                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
-                    : await action.GetAll(GetSuggestionExpression<TenantWalletBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
+                    ? await action.GetAll(model.PageNumber, model.PageSize, GetSuggestionExpression<CountryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties)    
+                    : await action.GetAll(GetSuggestionExpression<CountryBusinessModel>(model.Filters), model.OrderBy, model.IncludeProperties);    
                 var count = await Count(model);    
-                return new SuccessDataResult<IList<TenantWalletBusinessModel>>(data, count);  
+                return new SuccessDataResult<IList<CountryBusinessModel>>(data, count);  
             }    
             catch (Exception ex)    
             {    
-                return new ErrorDataResult<IList<TenantWalletBusinessModel>>(message: ServerException(ex).Message);  
+                return new ErrorDataResult<IList<CountryBusinessModel>>(message: ServerException(ex).Message);  
             }  
         }    
         [HttpGet]    
@@ -61,37 +61,37 @@ namespace PanelIdentity.Controllers
             try    
             {    
                 var data = await action.GetAll(null, "");    
-                return new SuccessDataResult<IList<TenantWalletBusinessModel>>(data, data.Count);  
+                return new SuccessDataResult<IList<CountryBusinessModel>>(data, data.Count);  
             }  
             catch (Exception ex)    
             {  
-                return new ErrorDataResult<IList<TenantWalletBusinessModel>>(message: ServerException(ex).Message);  
+                return new ErrorDataResult<IList<CountryBusinessModel>>(message: ServerException(ex).Message);  
             }  
         }    
         [HttpPost]    
-        public async Task<IResult> Post([FromBody] TenantWalletBusinessModel input)    
+        public async Task<IResult> Post([FromBody] CountryBusinessModel input)    
         {    
             try    
             {  
                 input = await action.Add(input);  
-                return new SuccessDataResult<TenantWalletBusinessModel>(input, 1);  
+                return new SuccessDataResult<CountryBusinessModel>(input, 1);  
             }  
             catch (Exception ex)    
             {  
-                return new ErrorDataResult<IList<TenantWalletBusinessModel>>(message: ServerException(ex).Message);  
+                return new ErrorDataResult<IList<CountryBusinessModel>>(message: ServerException(ex).Message);  
             }  
         }    
         [HttpPut("{id}")]    
-        public IResult Put( Int64 id, [FromBody] TenantWalletBusinessModel input)    
+        public IResult Put( Int64 id, [FromBody] CountryBusinessModel input)    
         {    
             try    
             {    
                 action.Modify(input);  
-                return new SuccessDataResult<TenantWalletBusinessModel>(input, 1);  
+                return new SuccessDataResult<CountryBusinessModel>(input, 1);  
             }  
             catch (Exception ex)    
             {  
-                return new ErrorDataResult<IList<TenantWalletBusinessModel>>(message: ServerException(ex).Message);  
+                return new ErrorDataResult<IList<CountryBusinessModel>>(message: ServerException(ex).Message);  
             }  
         }    
         [HttpDelete("{id}")]    
@@ -99,13 +99,13 @@ namespace PanelIdentity.Controllers
         {    
             try    
             {    
-                var action = new TenantWalletAction();    
+                var action = new CountryAction();    
                 action.Remove(id);  
                 return new SuccessResult();  
             }  
             catch (Exception ex)    
             {    
-                return new ErrorDataResult<TenantWalletBusinessModel>(message: ServerException(ex).Message);  
+                return new ErrorDataResult<CountryBusinessModel>(message: ServerException(ex).Message);  
             }  
         }    
         [HttpPost]    
@@ -113,8 +113,8 @@ namespace PanelIdentity.Controllers
         {    
             try    
             {    
-                var action = new TenantWalletAction();    
-                return await action.GetAllCount(GetFilterExpression<TenantWalletBusinessModel>(input.Filters));    
+                var action = new CountryAction();    
+                return await action.GetAllCount(GetFilterExpression<CountryBusinessModel>(input.Filters));    
             }    
             catch (Exception ex)    
             {    

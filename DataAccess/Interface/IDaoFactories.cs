@@ -33,7 +33,7 @@ namespace DataAccess.Interfaces
         IRolePermissionDao RolePermissionDao { get; }
         IRoleServiceItemDao RoleServiceItemDao { get; }
         IServiceItemDao ServiceItemDao { get; }
-        ITenantWalletDao TenantWalletDao { get; }
+        ICountryDao CountryDao { get; }
         ITenantWalletTransactionDao TenantWalletTransactionDao { get; }
         ITenentProjectDao TenentProjectDao { get; }
         IUserInfoDao UserInfoDao { get; }

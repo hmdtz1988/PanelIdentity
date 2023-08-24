@@ -87,7 +87,7 @@ namespace DataAccess.EntityFramework.MS_SQL
         public IRolePermissionDao RolePermissionDao { get { return new RolePermissionDao(DatabaseContext); } }
         public IRoleServiceItemDao RoleServiceItemDao { get { return new RoleServiceItemDao(DatabaseContext); } }
         public IServiceItemDao ServiceItemDao { get { return new ServiceItemDao(DatabaseContext); } }
-        public ITenantWalletDao TenantWalletDao { get { return new TenantWalletDao(DatabaseContext); } }
+        public ICountryDao CountryDao { get { return new CountryDao(DatabaseContext); } }
         public ITenantWalletTransactionDao TenantWalletTransactionDao { get { return new TenantWalletTransactionDao(DatabaseContext); } }
         public ITenentProjectDao TenentProjectDao { get { return new TenentProjectDao(DatabaseContext); } }
         public IUserInfoDao UserInfoDao { get { return new UserInfoDao(DatabaseContext); } }

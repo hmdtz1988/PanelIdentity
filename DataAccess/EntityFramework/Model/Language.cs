@@ -11,5 +11,7 @@ public partial class Language
 
     public string? Code { get; set; }
 
+    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
+
     public virtual ICollection<Tenant> Tenants { get; set; } = new List<Tenant>();
 }

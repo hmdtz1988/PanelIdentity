@@ -2,6 +2,8 @@ using BusinessLogic.BusinessModelRules;
 using BusinessModel;
 using Core.Helper;
 using DataTransferModel.ViewModel;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
 namespace BusinessLogic.Action
@@ -95,6 +97,50 @@ namespace BusinessLogic.Action
                Modify(input);  
            else  
                Add(input);  
-       }  
-   }  
+       }
+        
+        public async Task<UserInfoBusinessModel> UserLogin(string userName, string password)
+        {
+            try
+            {
+                var result = new UserInfoBusinessModel();
+                var userInfo = await GetAll(x => x.UserName == userName && x.Password == password, "", "UserTenants.Tenant.TenantProjects.Project");
+                if (userInfo != null && userInfo.Count > 0)
+                {
+                    var user = userInfo.FirstOrDefault();
+                    user.ActivationCode = string.Empty;
+                    Modify(user);
+                    result = user;
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<UserInfoBusinessModel> MobileLogin(string mobileNumber, string activeCode)
+        {
+            try
+            {
+                var result = new UserInfoBusinessModel();
+                var userInfo = await GetAll(x => x.MobileNo == mobileNumber && x.ActivationCode == activeCode && x.ActivationCode != "", "", "UserTenants");
+                if (userInfo != null && userInfo.Count > 0)
+                {
+                    var user = await Get(userInfo.FirstOrDefault().UserInfoId.Value, null);
+                    user.ActivationCode = string.Empty;
+                    Modify(user);
+                    result = user;
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }  
 }  

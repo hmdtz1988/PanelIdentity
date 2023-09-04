@@ -19,6 +19,8 @@ namespace BusinessModel
 
         public DateTime CreationDate { get; set; }
 
-        public virtual TenantBusinessModel Tenant { get; set; } = null!;
+        public virtual TenantBusinessModel? Tenant { get; set; } = null!;
+
+        public virtual UserInfoBusinessModel? User { get; set; } = null;
     }
 }

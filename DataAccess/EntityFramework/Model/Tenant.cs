@@ -49,6 +49,8 @@ public partial class Tenant
 
     public virtual Country? Country { get; set; }
 
+    public virtual Currency? Currency { get; set; }
+
     public virtual ICollection<Tenant> InverseParent { get; set; } = new List<Tenant>();
 
     public virtual Language? Language { get; set; }
@@ -62,6 +64,8 @@ public partial class Tenant
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
 
     public virtual ICollection<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
+
+    public virtual ICollection<TenantProject> TenantProjects { get; set; } = new List<TenantProject>();
 
     public virtual ICollection<TenantWalletTransaction> TenantWalletTransactions { get; set; } = new List<TenantWalletTransaction>();
 

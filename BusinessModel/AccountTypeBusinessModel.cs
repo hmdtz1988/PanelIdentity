@@ -10,6 +10,8 @@ namespace BusinessModel
 		public string TitleTr { get; set; }  
 		public string TitleAr { get; set; }  
 		public string TitleDu { get; set; }  
-		public string TitleFr { get; set; }  
-	}  
+		public string TitleFr { get; set; }
+        public virtual ICollection<ProjectAccountTypeBusinessModel>? ProjectAccountTypes { get; set; }
+
+    }
 }  

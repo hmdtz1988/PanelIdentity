@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace DataAccess.EntityFramework.Model;
 
-public partial class TenentProject
+public partial class TenantProject
 {
-    public long TenentProjectId { get; set; }
+    public long TenantProjectId { get; set; }
 
     public long TenantId { get; set; }
 
@@ -16,4 +16,8 @@ public partial class TenentProject
     public int AccountTypeId { get; set; }
 
     public bool IsActice { get; set; }
+
+    public virtual Project Project { get; set; } = null!;
+
+    public virtual Tenant Tenant { get; set; } = null!;
 }

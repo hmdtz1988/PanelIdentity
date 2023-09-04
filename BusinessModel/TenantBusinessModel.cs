@@ -50,5 +50,10 @@ namespace BusinessModel
 
         public virtual CurrencyBusinessModel? Currency { get; set; }
 
+        public virtual LanguageBusinessModel? Language { get; set; }
+
+        public virtual ICollection<TenantProjectBusinessModel>? TenantProjects { get; set; }
+
+
     }
 }  

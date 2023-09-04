@@ -4,9 +4,9 @@ using DataAccess.Interfaces;
 using DataAccess.EntityFramework.Model;  
 namespace DataAccess.EntityFramework.MS_SQL  
 {  
-    public class TenentProjectDao : DaoBaseClass<TenentProject, TenantProjectBusinessModel>, ITenentProjectDao  
+    public class TenantProjectDao : DaoBaseClass<TenantProject, TenantProjectBusinessModel>, ITenantProjectDao  
     {  
-        public TenentProjectDao(DbContext context) : base(context, "TenentProjectId")  
+        public TenantProjectDao(DbContext context) : base(context, "TenantProjectId")  
         {  
         }  
     }  

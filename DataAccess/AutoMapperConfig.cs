@@ -29,7 +29,7 @@ namespace DataAccess.EntityFramework.MS_SQL
             CreateMap<ServiceItemBusinessModel, ServiceItem>().ReverseMap();
             CreateMap<CountryBusinessModel, Country>().ReverseMap();
             CreateMap<TenantWalletTransactionBusinessModel, TenantWalletTransaction>().ReverseMap();
-            CreateMap<TenantProjectBusinessModel, TenentProject>().ReverseMap();
+            CreateMap<TenantProjectBusinessModel, TenantProject>().ReverseMap();
             CreateMap<UserInfoBusinessModel, UserInfo>().ReverseMap();
             CreateMap<UserInRoleBusinessModel, UserInRole>().ReverseMap();
             CreateMap<UserPermissionBusinessModel, UserPermission>().ReverseMap();

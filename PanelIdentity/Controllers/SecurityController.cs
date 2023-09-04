@@ -1,20 +1,11 @@
 ﻿using BusinessLogic.Action;
 using BusinessModel;
-using Core.Extensions;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Jwt;
 using DataTransferModel.ViewModel;
 using ExternalServices;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using PanelIdentity.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using ViewModel;
 using ViewModel.Service.Security;
 using IResult = Core.Utilities.Results.IResult;
@@ -45,14 +36,14 @@ namespace PanelIdentity.Controllers
             try
             {
                 var userAction = new UserInfoAction();
-                var userController = new UserInfoController(_httpContextAccessor);
-                var user = await userController.MobileLogin(input.MobileNumber, input.ActiveCode);
+                var tenantAction = new TenantAction();
+                var user = await userAction.MobileLogin(input.MobileNumber, input.ActiveCode);
                 if (user.UserInfoId == null)
                 {
                     return new ErrorDataResult<UserLoginViewModel>("UsernameOrPasswordIsInvalid");
                 }
 
-                user = await userAction.Get(user.UserInfoId.Value, "UserTenants");
+                user = await userAction.Get(user.UserInfoId.Value, "UserTenants.Tenant.TenantProjects.Project");
 
                 if (user.UserTenants?.Count > 0 && input.TenantId == null)
                     return new ErrorDataResult<UserLoginViewModel>("Tenant Not Selected");
@@ -60,8 +51,11 @@ namespace PanelIdentity.Controllers
                 if (input.TenantId != null && !user.UserTenants.Select(x=> x.TenantId).Contains(input.TenantId.Value))
                     return new ErrorDataResult<UserLoginViewModel>("Access Denied", 404, "404");
 
-                loginHistory.UserInfoId = user.UserInfoId.Value;
-                loginHistory.Token = _tokenCreator.CreateToken(user, null, null, input.TenantId).Result;
+                loginHistory.UserInfoId = user == null || user?.UserInfoId == null ? 0 : user.UserInfoId.Value;
+                CountryBusinessModel? country = new CountryBusinessModel();
+                if (input.TenantId != null)
+                    country = (await tenantAction.Get(input.TenantId.Value, "Country.Language,Country.Currency"))?.Country;
+                loginHistory.Token = _tokenCreator.CreateToken(user, user?.UserTenants?.SelectMany(z => z.Tenant?.TenantProjects)?.Select(x => x.Project)?.ToList(), null, input.TenantId, country).Result;
                 loginHistory.LoginDateTime = DateTime.Now;
                 loginHistory.ExpireDateTime = DateTime.Now.AddHours(16);
                 if (user == null)
@@ -99,8 +93,8 @@ namespace PanelIdentity.Controllers
             try
             {
                 var userAction = new UserInfoAction();
-                var userController = new UserInfoController(_httpContextAccessor);
-                var user = await userController.UserLogin(input.UserName, input.Password);
+                var tenantAction = new TenantAction();
+                var user = await userAction.UserLogin(input.UserName, Security.MD5Security.GetMd5Hash(input.Password));
                 if (user.UserInfoId == null)
                 {
                     return new ErrorDataResult<UserLoginViewModel>("UsernameOrPasswordIsInvalid");
@@ -116,7 +110,11 @@ namespace PanelIdentity.Controllers
 
                 user = await userAction.Get(user.UserInfoId.Value);
                 loginHistory.UserInfoId = user.UserInfoId.Value;
-                loginHistory.Token = _tokenCreator.CreateToken(user, null, null, input.TenantId).Result;
+                CountryBusinessModel? country = new CountryBusinessModel();
+                if (input.TenantId != null)
+                    country = (await tenantAction.Get(input.TenantId.Value, "Country.Language,Country.Currency"))?.Country;
+
+                loginHistory.Token = _tokenCreator.CreateToken(user, user?.UserTenants?.SelectMany(z => z.Tenant?.TenantProjects)?.Select(x => x.Project)?.ToList(), null, input.TenantId, country).Result;
                 loginHistory.LoginDateTime = DateTime.Now;
                 loginHistory.ExpireDateTime = DateTime.Now.AddHours(16);
                 loginHistory.TenantId = input.TenantId;

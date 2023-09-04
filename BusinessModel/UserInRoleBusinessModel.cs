@@ -15,5 +15,7 @@ namespace BusinessModel
 		public bool IsDeleted { get; set; }  
 		public DateTime? DeleteDate { get; set; }  
 		public Int64? DeletedById { get; set; }  
+
+		public UserInfoBusinessModel? UserInfo { get; set; }
 	}  
 }  

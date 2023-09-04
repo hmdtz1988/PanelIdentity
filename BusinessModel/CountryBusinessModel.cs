@@ -15,5 +15,9 @@ namespace BusinessModel
         public string? PhoneCode { get; set; }
 
         public string? FlagUrl { get; set; }
+
+        public virtual CurrencyBusinessModel? Currency { get; set; } = null!;
+
+        public virtual LanguageBusinessModel? Language { get; set; } = null!;
     }  
 }  

@@ -30,6 +30,7 @@ namespace PanelIdentity.Controllers
 
 
         private LoginHistoryAction action = new LoginHistoryAction();  
+        private TenantAction tenantAction = new TenantAction();
         [HttpGet("{accessToken}")]  
        public async Task<IResult> Get(Guid accessToken)   
        {   
@@ -89,7 +90,7 @@ namespace PanelIdentity.Controllers
         {
             try
             {
-                var loginHistories = await action.GetAll(x=> x.AccessToken == input.AccessToken && x.Token == input.Token, "", "UserInfo.UserTenants");
+                var loginHistories = await action.GetAll(x=> x.AccessToken == input.AccessToken && x.Token == input.Token, "", "UserInfo.UserTenants.Tenant.TenantProjects.Project");
                 if (loginHistories == null || loginHistories.Count == 0) 
                     return new ErrorDataResult<IList<LoginHistoryBusinessModel>>(message: "Token Not Found");
 
@@ -99,7 +100,8 @@ namespace PanelIdentity.Controllers
                     return new ErrorDataResult<IList<LoginHistoryBusinessModel>>(message: "Access Denied");
 
                 loginHistory.TenantId = input.TenantId;
-                loginHistory.Token = await _tokenCreator.CreateToken(loginHistory.UserInfo, null, null, input.TenantId);
+                var country = (await tenantAction.Get(input.TenantId, "Country.Language,Country.Currency"))?.Country;
+                loginHistory.Token = await _tokenCreator.CreateToken(loginHistory.UserInfo, loginHistory.UserInfo?.UserTenants?.SelectMany(z => z.Tenant?.TenantProjects)?.Select(x => x.Project)?.ToList(), null, input.TenantId, country);
                 action.Modify(loginHistory);
                 var result = new UserLoginViewModel() { UserInfoId = loginHistory.UserInfoId, ExpireDate = loginHistory.ExpireDateTime, LoginDate = loginHistory.CreationDate, AccessToken = input.AccessToken, Avatar = loginHistory.UserInfo.Avatar, Token = loginHistory.Token, UserFullTitle = loginHistory.UserInfo.FirstName + " " + loginHistory.UserInfo.LastName, UserName = loginHistory.UserInfo.UserName };
                 return new SuccessDataResult<UserLoginViewModel>(result, 1);

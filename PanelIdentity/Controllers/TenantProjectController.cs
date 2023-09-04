@@ -6,10 +6,10 @@ using Core.Extensions;
 using IResult = Core.Utilities.Results.IResult;  
 namespace PanelIdentity.Controllers  
 {  
-    [Route("api/TenentProject/[action]")]  
-    public class TenentProjectController : BaseApiController  
+    [Route("api/TenantProject/[action]")]  
+    public class TenantProjectController : BaseApiController  
     {  
-        private TenentProjectAction action = new TenentProjectAction();  
+        private TenantProjectAction action = new TenantProjectAction();  
         [HttpGet("{id}")]  
        public async Task<IResult> Get(Int64 id, string? includeProperties)   
        {   
@@ -99,7 +99,7 @@ namespace PanelIdentity.Controllers
         {    
             try    
             {    
-                var action = new TenentProjectAction();    
+                var action = new TenantProjectAction();    
                 action.Remove(id);  
                 return new SuccessResult();  
             }  
@@ -113,7 +113,7 @@ namespace PanelIdentity.Controllers
         {    
             try    
             {    
-                var action = new TenentProjectAction();    
+                var action = new TenantProjectAction();    
                 return await action.GetAllCount(GetFilterExpression<TenantProjectBusinessModel>(input.Filters));    
             }    
             catch (Exception ex)    

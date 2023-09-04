@@ -14,5 +14,6 @@ namespace BusinessModel
 
         public virtual CurrencyBusinessModel? Currency { get; set; } = null!;
 
+		public virtual ProjectBusinessModel? Project { get; set; } = null!;
     }  
 }  

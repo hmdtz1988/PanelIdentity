@@ -132,55 +132,6 @@ namespace PanelIdentity.Controllers
             {    
                 throw ServerException(ex);    
             }    
-        }
-
-
-        [HttpGet]
-        public async Task<UserInfoBusinessModel> MobileLogin(string mobileNumber, string activeCode)
-        {
-            try
-            {
-                var result = new UserInfoBusinessModel();
-                var action = new UserInfoAction();
-                var userInfo = await action.GetAll(x => x.MobileNo == mobileNumber && x.ActivationCode == activeCode && x.ActivationCode != "","","UserTenants");
-                if (userInfo != null && userInfo.Count > 0)
-                {
-                    var user = await action.Get(userInfo.FirstOrDefault().UserInfoId.Value, null);
-                    user.ActivationCode = string.Empty;
-                    action.Modify(user);
-                    result = user;
-                }
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw ServerException(ex);
-            }
-        }
-
-        [HttpGet]
-        public async Task<UserInfoBusinessModel> UserLogin(string userName, string password)
-        {
-            try
-            {
-                var result = new UserInfoBusinessModel();
-                var action = new UserInfoAction();
-                var userInfo = await action.GetAll(x => x.UserName == userName && x.Password == Security.MD5Security.GetMd5Hash(password),"","UserTenants");
-                if (userInfo != null && userInfo.Count > 0)
-                {
-                    var user = userInfo.FirstOrDefault();
-                    user.ActivationCode = string.Empty;
-                    action.Modify(user);
-                    result = user;
-                }
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw ServerException(ex);
-            }
-        }
+        }        
     }  
 }  

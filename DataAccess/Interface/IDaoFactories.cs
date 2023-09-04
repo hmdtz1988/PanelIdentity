@@ -35,7 +35,7 @@ namespace DataAccess.Interfaces
         IServiceItemDao ServiceItemDao { get; }
         ICountryDao CountryDao { get; }
         ITenantWalletTransactionDao TenantWalletTransactionDao { get; }
-        ITenentProjectDao TenentProjectDao { get; }
+        ITenantProjectDao TenantProjectDao { get; }
         IUserInfoDao UserInfoDao { get; }
         IUserInRoleDao UserInRoleDao { get; }
         IUserPermissionDao UserPermissionDao { get; }

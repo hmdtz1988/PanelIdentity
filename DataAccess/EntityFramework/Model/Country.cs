@@ -17,5 +17,9 @@ public partial class Country
 
     public string? FlagUrl { get; set; }
 
+    public virtual Currency Currency { get; set; } = null!;
+
+    public virtual Language Language { get; set; } = null!;
+
     public virtual ICollection<Tenant> Tenants { get; set; } = new List<Tenant>();
 }

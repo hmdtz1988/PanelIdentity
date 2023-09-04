@@ -190,9 +190,9 @@ namespace DataAccess.EntityFramework.MS_SQL
                     result = typeof(TenantWalletTransactionBusinessModel);
                     break;
                 case "TenantProjectBusinessModel":
-                    result = typeof(TenentProject);
+                    result = typeof(TenantProject);
                     break;
-                case "TenentProject":
+                case "TenantProject":
                     result = typeof(TenantProjectBusinessModel);
                     break;
 

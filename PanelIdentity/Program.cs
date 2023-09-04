@@ -10,6 +10,7 @@ using PanelIdentity.Security;
 using System.Globalization;
 using PanelIdentity.Extensions;
 using Identity.Business.DependencyResolvers.Autofac;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager Configuration = builder.Configuration;
@@ -60,6 +61,12 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 #endregion
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
+
 builder.Services.AddSwaggerExt();
 
 builder.Services.AddMvc();

@@ -53,9 +53,9 @@ public partial class PanelIdentityContext : DbContext
 
     public virtual DbSet<Tenant> Tenants { get; set; }
 
-    public virtual DbSet<TenantWalletTransaction> TenantWalletTransactions { get; set; }
+    public virtual DbSet<TenantProject> TenantProjects { get; set; }
 
-    public virtual DbSet<TenentProject> TenentProjects { get; set; }
+    public virtual DbSet<TenantWalletTransaction> TenantWalletTransactions { get; set; }
 
     public virtual DbSet<UserDevice> UserDevices { get; set; }
 
@@ -97,6 +97,16 @@ public partial class PanelIdentityContext : DbContext
             entity.Property(e => e.FlagUrl).HasMaxLength(500);
             entity.Property(e => e.PhoneCode).HasMaxLength(10);
             entity.Property(e => e.Title).HasMaxLength(150);
+
+            entity.HasOne(d => d.Currency).WithMany(p => p.Countries)
+                .HasForeignKey(d => d.CurrencyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Country_Currency");
+
+            entity.HasOne(d => d.Language).WithMany(p => p.Countries)
+                .HasForeignKey(d => d.LanguageId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Country_Language");
         });
 
         modelBuilder.Entity<Currency>(entity =>
@@ -396,6 +406,10 @@ public partial class PanelIdentityContext : DbContext
                 .HasForeignKey(d => d.CountryId)
                 .HasConstraintName("FK_Tenant_Country");
 
+            entity.HasOne(d => d.Currency).WithMany(p => p.Tenants)
+                .HasForeignKey(d => d.CurrencyId)
+                .HasConstraintName("FK_Tenant_Currency");
+
             entity.HasOne(d => d.Language).WithMany(p => p.Tenants)
                 .HasForeignKey(d => d.LanguageId)
                 .HasConstraintName("FK_Tenant_Language");
@@ -403,6 +417,23 @@ public partial class PanelIdentityContext : DbContext
             entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
                 .HasForeignKey(d => d.ParentId)
                 .HasConstraintName("FK_Tenant_Tenant");
+        });
+
+        modelBuilder.Entity<TenantProject>(entity =>
+        {
+            entity.HasKey(e => e.TenantProjectId).HasName("PK_TenantProject");
+
+            entity.ToTable("TenantProject");
+
+            entity.HasOne(d => d.Project).WithMany(p => p.TenantProjects)
+                .HasForeignKey(d => d.ProjectId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TenantProject_Project");
+
+            entity.HasOne(d => d.Tenant).WithMany(p => p.TenantProjects)
+                .HasForeignKey(d => d.TenantId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TenantProject_Tenant");
         });
 
         modelBuilder.Entity<TenantWalletTransaction>(entity =>
@@ -430,11 +461,6 @@ public partial class PanelIdentityContext : DbContext
                 .HasForeignKey(d => d.TenantId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TenantWalletTransaction_Tenant");
-        });
-
-        modelBuilder.Entity<TenentProject>(entity =>
-        {
-            entity.ToTable("TenentProject");
         });
 
         modelBuilder.Entity<UserDevice>(entity =>

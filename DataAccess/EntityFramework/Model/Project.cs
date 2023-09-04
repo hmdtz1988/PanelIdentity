@@ -36,4 +36,6 @@ public partial class Project
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
 
     public virtual ICollection<Service> Services { get; set; } = new List<Service>();
+
+    public virtual ICollection<TenantProject> TenantProjects { get; set; } = new List<TenantProject>();
 }

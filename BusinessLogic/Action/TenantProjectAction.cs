@@ -8,12 +8,12 @@ using System.Text;
 using System.Threading.Tasks;  
 namespace BusinessLogic.Action  
 {  
-   public class TenentProjectAction : ActionBase  
+   public class TenantProjectAction : ActionBase  
    {  
-       public TenentProjectAction()  
+       public TenantProjectAction()  
        {  
        }  
-       public TenentProjectAction(FactoryContainer factoryContainer)  
+       public TenantProjectAction(FactoryContainer factoryContainer)  
        {  
            FactoryContainer = factoryContainer;  
        }  
@@ -21,56 +21,56 @@ namespace BusinessLogic.Action
            Expression<Func<TenantProjectBusinessModel, bool>>? filter = null,  
            string orderBy = "", string? includeProperties = "")  
        {  
-           return await FactoryContainer.Factory.TenentProjectDao.GetAll(filter, orderBy, includeProperties);  
+           return await FactoryContainer.Factory.TenantProjectDao.GetAll(filter, orderBy, includeProperties);  
        }  
        public async Task<IList<TenantProjectBusinessModel>> GetAll(int pageNumber, int pageSize,  
            Expression<Func<TenantProjectBusinessModel, bool>>? filter = null,  
            string orderBy = "", string? includeProperties = "")  
        {  
-           return await FactoryContainer.Factory.TenentProjectDao.GetAll(pageNumber, pageSize, filter, orderBy, includeProperties  
+           return await FactoryContainer.Factory.TenantProjectDao.GetAll(pageNumber, pageSize, filter, orderBy, includeProperties  
                );  
        }  
        public async Task<Int64> GetAllCount(Expression<Func<TenantProjectBusinessModel, bool>>? filter = null)  
        {  
-           return await FactoryContainer.Factory.TenentProjectDao.GetAllCount(filter);  
+           return await FactoryContainer.Factory.TenantProjectDao.GetAllCount(filter);  
        }  
        public async Task<TenantProjectBusinessModel?> Get(Int64 input, string? includeProperties = "")  
        {  
-           return await FactoryContainer.Factory.TenentProjectDao.GetByKey(input, includeProperties);  
+           return await FactoryContainer.Factory.TenantProjectDao.GetByKey(input, includeProperties);  
        }  
        public async Task<TenantProjectBusinessModel> Add(TenantProjectBusinessModel input)  
        {  
-           TenentProjectBusinessRule obj = new TenentProjectBusinessRule(input);  
+           TenantProjectBusinessRule obj = new TenantProjectBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Add))  
                throw new Exception(obj.BrokenRules.ToString());  
-           return await FactoryContainer.Factory.TenentProjectDao.Create(input);  
+           return await FactoryContainer.Factory.TenantProjectDao.Create(input);  
        }  
        public void Modify(TenantProjectBusinessModel input)  
        {  
-           TenentProjectBusinessRule obj = new TenentProjectBusinessRule(input);  
+           TenantProjectBusinessRule obj = new TenantProjectBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Modify))  
                throw new Exception(obj.BrokenRules.ToString());  
-           FactoryContainer.Factory.TenentProjectDao.Update(input);  
+           FactoryContainer.Factory.TenantProjectDao.Update(input);  
        }  
        public void Remove(TenantProjectBusinessModel input)  
        {  
-           TenentProjectBusinessRule obj = new TenentProjectBusinessRule(input);  
+           TenantProjectBusinessRule obj = new TenantProjectBusinessRule(input);  
            if (!obj.Validate(BusinessRules.BusinessObjectState.Remove))  
                throw new Exception(obj.BrokenRules.ToString());  
-           FactoryContainer.Factory.TenentProjectDao.Delete(input);  
+           FactoryContainer.Factory.TenantProjectDao.Delete(input);  
        }  
        public void Remove(Int64 input)  
        {  
-           FactoryContainer.Factory.TenentProjectDao.Delete(input);  
+           FactoryContainer.Factory.TenantProjectDao.Delete(input);  
        }  
        public void Save(TenantProjectBusinessModel input)  
        {  
-           if (input.TenentProjectId.HasValue == false)  
+           if (input.TenantProjectId.HasValue == false)  
            {  
                Add(input);  
                return;  
            }  
-           var result = Get(input.TenentProjectId.Value);  
+           var result = Get(input.TenantProjectId.Value);  
            if (result != null)  
                Modify(input);  
            else  

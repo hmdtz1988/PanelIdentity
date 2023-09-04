@@ -19,6 +19,7 @@ namespace BusinessModel
 		public bool IsService { get; set; }  
 		public Int64 ItemOrder { get; set; }  
 		public DateTime CreationDate { get; set; }
+
         public virtual ICollection<ServiceBusinessModel>? InverseParent { get; set; } = new List<ServiceBusinessModel>();
 
         public virtual ICollection<ServiceActionBusinessModel>? ServiceActions { get; set; } = new List<ServiceActionBusinessModel>();

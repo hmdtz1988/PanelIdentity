@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;  
 namespace BusinessLogic.BusinessModelRules  
 {  
-    public class TenentProjectBusinessRule : Decorator<TenantProjectBusinessModel>  
+    public class TenantProjectBusinessRule : Decorator<TenantProjectBusinessModel>  
     {  
-        public TenentProjectBusinessRule(TenantProjectBusinessModel input)  
+        public TenantProjectBusinessRule(TenantProjectBusinessModel input)  
             : base(input)  
         {  
         }  

@@ -94,6 +94,7 @@ public partial class PanelIdentityContext : DbContext
         {
             entity.ToTable("Country");
 
+            entity.Property(e => e.CountryCode).HasMaxLength(5);
             entity.Property(e => e.FlagUrl).HasMaxLength(500);
             entity.Property(e => e.PhoneCode).HasMaxLength(10);
             entity.Property(e => e.Title).HasMaxLength(150);
@@ -421,7 +422,7 @@ public partial class PanelIdentityContext : DbContext
 
         modelBuilder.Entity<TenantProject>(entity =>
         {
-            entity.HasKey(e => e.TenantProjectId).HasName("PK_TenantProject");
+            entity.HasKey(e => e.TenantProjectId).HasName("PK_TenentProject");
 
             entity.ToTable("TenantProject");
 

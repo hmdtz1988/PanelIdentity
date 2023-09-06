@@ -16,7 +16,7 @@ namespace DataAccess.EntityFramework.MS_SQL
         private string _idPropery;
         private readonly IMapper _mapper;
         private readonly DbContext _dbContext;
-        private readonly GenericRepository<T> _repository;
+        protected readonly GenericRepository<T> _repository;
 
         protected TBusinessModel GetObject()
         {

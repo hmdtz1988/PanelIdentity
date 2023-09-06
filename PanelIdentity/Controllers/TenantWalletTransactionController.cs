@@ -11,18 +11,18 @@ namespace PanelIdentity.Controllers
     {  
         private TenantWalletTransactionAction action = new TenantWalletTransactionAction();  
         [HttpGet("{id}")]  
-       public async Task<IResult> Get(Int64 id, string? includeProperties)   
-       {   
-           try   
-           {   
-               var data = await action.Get(id, includeProperties);   
-               return new SuccessDataResult<TenantWalletTransactionBusinessModel>(data, 1);  
-           }   
-           catch (Exception ex)   
-           {   
-               return new ErrorDataResult<TenantWalletTransactionBusinessModel>(message: ServerException(ex).Message);  
-           }   
-       }   
+        public async Task<IResult> Get(Int64 id, string? includeProperties)   
+        {   
+            try   
+            {   
+                var data = await action.Get(id, includeProperties);   
+                return new SuccessDataResult<TenantWalletTransactionBusinessModel>(data, 1);  
+            }   
+            catch (Exception ex)   
+            {   
+                return new ErrorDataResult<TenantWalletTransactionBusinessModel>(message: ServerException(ex).Message);  
+            }   
+        }   
         [HttpPost]    
         public async Task<IResult> Get([FromBody] DataFilterWithPaging model)    
         {    
@@ -120,6 +120,19 @@ namespace PanelIdentity.Controllers
             {    
                 throw ServerException(ex);    
             }    
-        }    
+        }
+        [HttpGet("{tenantId}")]
+        public async Task<IResult> GetWalletRemaining(Int64 tenantId)
+        {
+            try
+            {
+                var data = await action.GetWalletRemaining(tenantId);
+                return new SuccessDataResult<decimal>(data, 1);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorDataResult<decimal>(message: ServerException(ex).Message);
+            }
+        }
     }  
 }  

@@ -17,6 +17,8 @@ public partial class Country
 
     public string? FlagUrl { get; set; }
 
+    public string? CountryCode { get; set; }
+
     public virtual Currency Currency { get; set; } = null!;
 
     public virtual Language Language { get; set; } = null!;
